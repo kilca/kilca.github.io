@@ -11,10 +11,6 @@
             <h2>
               Ingénieur Informatique et ingénierie mathématique
             </h2>
-            <p>
-              Actuellement fraichement diplomé, je travaille en temps que full stack développeur
-              et aime aussi développer des jeux ou des projets sur mon temps libre
-            </p>
           </div>
           <div class="sections-menu">
             <span
@@ -52,13 +48,13 @@
             <!-- 3D Presentation -->
             <Presentation />
         </section>
-        <section ref="a" class="fullpage">
+        <section class="fullpage">
           <!-- Radial menu -->
-            <Projects/>
+            <Skills/>
         </section>
         <section class="fullpage">
-          <!-- cloud texts/liste -->
-            <Skills/>
+          <!-- Radial menu -->
+            <Projects/>
         </section>
         <section class="fullpage">
           <!-- ??? -->
@@ -77,6 +73,7 @@ import Projects from './Projects.vue';
 import Contact from './Contact.vue';
 import Presentation from './Presentation.vue';
 import Skills from './Skills.vue';
+import Experience from './Experience.vue';
 
 @Options({
   props: {
@@ -85,16 +82,17 @@ import Skills from './Skills.vue';
     Presentation,
     Contact,
     Projects,
+    Experience,
     Skills
   }
 })
-export default class HelloWorld extends Vue {
+export default class MainPage extends Vue {
 
 
     inMove = false;
     activeSection= 0;
     offsets : number[]= [];
-    sections = ['Thumbnail','Projets','Skills','Contact']
+    sections = ['Presentation','Compétences','Projets','Contact']
     touchStartY= 0;
 
 
@@ -213,7 +211,7 @@ $background-side-color:#0F2027;
 $background-content-color:#2c5364;
 $text-content-color: #d8e2eb;
 $text-side-color: #fff;
-$sidebar-size : 600px;
+$sidebar-size : 360px;
 $background-side-gradient: linear-gradient(90deg, #0F2027 0%,rgba(18,32,61,1) 50%,#2c5364 100%);
 
 
@@ -226,7 +224,7 @@ $background-side-gradient: linear-gradient(90deg, #0F2027 0%,rgba(18,32,61,1) 50
 
 /* The side navigation menu */
 .sidebar {
-  
+  box-shadow: 5px 5px 5px #686d8f;
   margin: 0;
   padding: 0;
   position: fixed;
@@ -294,7 +292,6 @@ p{
 div.content {
   margin-left: $sidebar-size;
   padding: 1px 16px;
-  height: 1000px;
   //background-color: $background-content-color;
   background: $background-side-gradient;
   overflow-y: hidden; /* Hide vertical scrollbar */

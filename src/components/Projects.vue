@@ -1,38 +1,19 @@
 <template>
-<div>
-    <h1>Bests</h1>  
-    <div class="container">
-        <ul id="menu">
-                <a class="menu-button icon-plus" href="#menu" title="Show navigation"></a>
-                <a class="menu-button icon-minus" href="#0" title="Hide navigation"></a>
-                <li class="menu-item">
-                    <a href="#menu">
-                        <span class="fa fa-github"></span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="#menu">
-                        <span class="fa fa-linkedin"></span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="#menu">
-                        <span class="fa fa-instagram"></span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="#menu">
-                        <span class="fa fa-twitter"></span>
-                    </a>
-                </li>
-            </ul>
-      
-      <div class="content">
-        <div class="text">
-          <h3> Click circle!</h3>
-          <h6>Tada...!</h6>
-        </div>
+<div class="maindiv">
+    <h1>Projets</h1>  
+    <div class="content-inner">
+      <div class="tab">
+        <button v-for="(projet, index) in projets" 
+              v-bind:key="index" class="tablinks" v-on:click="()=>{showProject(index)}">{{projet.name}}</button>
       </div>
+
+      <template v-for="(projet, index) in projets" v-bind:key="projet">
+        <div class="tabcontent" v-show="activeTab===index">
+          <div v-for="(card) in projet.cards" v-bind:key="card">
+            <Card nom="hello" description="a brave person" description2="yeahhh"></Card>
+          </div>
+        </div>
+      </template>
     </div>
 
 </div>
@@ -41,13 +22,51 @@
 <script lang="ts">
 //https://codepen.io/0guzhan/pen/YvNmwJ
 import { Options, Vue } from 'vue-class-component';
+import Card from './helper/Card.vue';
 
 @Options({
   props: {
+  },
+  components:{
+    Card
   }
 })
 export default class Projects extends Vue {
 
+  activeTab=0;
+  
+
+  showProject(index:number) {
+    this.activeTab = index;
+  }
+
+  
+  data(){
+    return {
+      projets:[
+        {
+            name:'Professionnels',
+            cards:[
+                {
+                nom:'Pix',
+                }
+                ,
+                {
+                nom:'PNS',
+                }
+            ],
+        },{
+            name:'Personnels',
+            cards:[
+                {
+                    nom:'Around the circle'
+                }
+            ]
+        }
+      ]
+    }
+    
+  }
 }
 
 </script>
@@ -60,111 +79,55 @@ div{
     width: 100%;
     display:grid;
 }
-/*
-body{
-   font-family: "Dosis",sans-serif;
+.maindiv{
+    height: 100vh;
+    width: 100%;
+    display:grid;
+}
+
+/* Style the tab */
+.tab {
+  width: 30%;
+  display: flex;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  display: block;
+  background-color: darkcyan;
+  color: white;
+  padding: 22px 16px;
+  width: 100%;
+  border: 1px solid blanchedalmond;
+  outline: none;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 17px;
   text-align: center;
 }
 
-#menu {
-    width: 150px;
-    height: 150px;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    margin: -75px 0 0 -75px;
-    list-style: none;
-    font-size: 200%;
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+  color:cornflowerblue;
 }
 
-.menu-button {
-    opacity: 0;
-    z-index: -1;
+/* Create an active/current "tab button" class */
+.tab button.active {
+  background-color: #ccc;
 }
 
-.menu-button {
-    width: 150px;
-    height: 150px;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    margin: -75px 0 0 -75px;
-    border-radius: 50%;
-    background: #424242;
-    background-size: 100%;
-    overflow: hidden;
-    text-decoration: none;
+/* Style the tab content */
+.tabcontent {
+  width: 70%;
+  display: flex;
+  justify-content: space-evenly;
 }
 
-#menu:not(:target)>a:first-of-type,
-#menu:target>a:last-of-type {
-    opacity: 1;
-    z-index: 1;
+.content-inner{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-
-#menu:not(:target)>.icon-plus:before,
-#menu:target>.icon-minus:before {
-    opacity: 1;
-}
-
-.menu-item {
-    width: 70px;
-    height: 70px;
-    position: absolute;
-    left: 55%;
-    line-height: 5px;
-    top: 50%;
-    margin: -50px 0 0 -50px;
-    border-radius: 50%;
-    background-color: #424242;
-    transform: translate(0px, 0px);
-    transition: transform 500ms;
-    z-index: -2;
-    transition: .5s;
-}
-
-.menu-item:hover{
-opacity: 0.5;
-  box-shadow: 0 5px 10px black; 
-}
-
-
-.menu-item a {
-    color: #fff;
-    position: relative;
-    top: 30%;
-    left: 0;
-    text-decoration: none;
-}
-
-#menu:target>.menu-item:nth-child(6) {
-    transform: rotate(60deg) translateY(-150px) rotate(300deg);
-    transition-delay: 0s;
-}
-
-#menu:target>.menu-item:nth-child(5) {
-    transform: rotate(20deg) translateY(-155px) rotate(-20deg);
-    transition-delay: 0.1s;
-}
-
-#menu:target>.menu-item:nth-child(3) {
-    transform: rotate(-20deg) translateY(-155px) rotate(20deg);
-    transition-delay: 0.2s;
-}
-
-#menu:target>.menu-item:nth-child(4) {
-    transform: rotate(-60deg) translateY(-150px) rotate(60deg);
-    transition-delay: 0.3s;
-}
-
-.content{
-  position: absolute;
-  text-align: center;
-  margin: -10px 0 0 -30px;
-  top: 70%;
-  left: 50%;
-  font-size: 20px;
-}
-*/
 
 </style>

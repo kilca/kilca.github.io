@@ -1,13 +1,22 @@
 <template>
-  <h1>Projects</h1>
-<div class="griddiv">
-    <Game />
-</div>
+  <br/>
+    <div class="content-inner">
+
+    <div class="left">
+     <h1 class="presentation-title">Presentation</h1>
+      <p>
+          {{presentation.description}}
+      </p>
+    </div>
+      <div class="right">
+        <Game />
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import Game from './Game.vue';
+import Game from './helper/Game.vue';
 
 @Options({
   props: {
@@ -16,7 +25,7 @@ import Game from './Game.vue';
     Game
   }
 })
-export default class Projects extends Vue {
+export default class Presentation extends Vue {
 
   isLoaded = false;
 
@@ -26,6 +35,16 @@ export default class Projects extends Vue {
     }
   }
 
+  data(){
+    return {
+      presentation:{
+        description:` Actuellement fraichement diplomé, je travaille en temps que full stack développeur
+              et aime aussi développer des jeux ou des projets sur mon temps libre`
+      }
+    }
+  }
+
+
 }
 
 </script>
@@ -33,8 +52,18 @@ export default class Projects extends Vue {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 
+.presentation-title{
+  font-size:40px;
+  margin-top:240px;
+}
+
 h1{
   z-index: 10;
+}
+
+.content-inner{
+  display: flex;
+  align-items: center;
 }
 
 .griddiv{
@@ -48,4 +77,20 @@ h1{
 .gridcontent{
   background-color:red;
 }
+
+.content-inner{
+  display: flex;
+  align-items: center;
+}
+
+.left {
+  width:600px;
+  margin-left:200px;
+
+
+}
+.right {
+  margin-right: 100px;
+}
+
 </style>

@@ -17,6 +17,16 @@
   text-align: center;
 }
 
+h1{
+  color:beige;
+  font-size:3em;
+}
+
+p{
+  color:white;
+  font-size:1.5em;
+}
+
 nav {
   padding: 30px;
 

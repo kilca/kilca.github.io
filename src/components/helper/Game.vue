@@ -211,12 +211,29 @@ export default class Game extends Vue {
 
     }
 
+    resizeCanvasToDisplaySize() {
+        const canvas = this.renderer.domElement;
+        // look up the size the canvas is being displayed
+        const width = 1920;
+        const height = 1080;
+        // adjust displayBuffer size to match
+        if (canvas.width !== width || canvas.height !== height) {
+            console.log('adjust');
+            // you must pass false here or three.js sadly fights the browser
+            this.renderer.setSize(width, height, false);
+            this.camera.aspect = width / height;
+            this.camera.updateProjectionMatrix();
+            // update any render target sizes here
+        }
+    }
+
     onMouseMove( ev : any ) {
         this.mouse[ 0 ] = ev.clientX / window.innerWidth;
         this.mouse[ 1 ] = ev.clientY / window.innerHeight;
     }
 
     animate() {
+        this.resizeCanvasToDisplaySize();
         requestAnimationFrame(this.animate)
         this.rendere();
     }
@@ -286,7 +303,9 @@ export default class Game extends Vue {
     }
 
     mounted() {
-        document.getElementById('canvas')?.appendChild(this.renderer.domElement);
+        const canvas = document.getElementById('canvas')?.appendChild(this.renderer.domElement);
+        canvas.style.height = "300px";
+        canvas.style.width = "600px";
         //this.$refs.canvas.appendChild(this.renderer.domElement)
         requestAnimationFrame(this.animate)
         //this.animate()
@@ -309,6 +328,17 @@ div{
     background: rgba(51,51,51,0.7);
     z-index: 10;
     */
+}
+
+#canvas { 
+    width: 150px;
+    height: 150px;
+    float: left;
+    margin: 1em;
+}
+canvas { 
+    width: 50%;
+    height: 50%;
 }
 
 </style>
