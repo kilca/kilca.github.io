@@ -48,18 +48,38 @@ export default class Projects extends Vue {
             name:'Professionnels',
             cards:[
                 {
-                nom:'Pix',
+                    nom:'Pix-Vod',
                 }
                 ,
                 {
-                nom:'PNS',
+                    nom:'Paris Notaire Service',
+                },
+                {
+                    nom:'Sesam',
+                },{
+                    nom:'simulation vr'
+                },
+                {
+                    nom:'simulation vr'
                 }
             ],
         },{
             name:'Personnels',
             cards:[
                 {
-                    nom:'Around the circle'
+                    nom:'color zone'
+                },{
+                    nom:'Yeplay'
+                },{
+                    nom:'Exacct'
+                },{
+                    nom:'AlchemyVR'
+                },{
+                    nom:'myCraft'
+                },{
+                    nom:'ndf'
+                },{
+                    nom:'space defenders'
                 }
             ]
         }
@@ -74,13 +94,11 @@ export default class Projects extends Vue {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 
-div{
-    height: 100vh;
-    width: 100%;
-    display:grid;
+.card-info{
+    display:flex;
 }
+
 .maindiv{
-    height: 100vh;
     width: 100%;
     display:grid;
 }
@@ -121,7 +139,10 @@ div{
 .tabcontent {
   width: 70%;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
+  margin-top:40px;
+  flex-wrap:wrap;
+  align-content: flex-start;
 }
 
 .content-inner{

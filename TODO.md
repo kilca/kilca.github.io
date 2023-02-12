@@ -1,0 +1,2 @@
+- Add Experiences timeline with w3school timeline (when enough experience)
+- Add blog section or link (when enough blogs)
