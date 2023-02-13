@@ -1,13 +1,29 @@
 <template>
-  <!--
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  -->
-  <router-view/>
+  <MainPage/>
 </template>
+<script lang="ts">
+import { Options, Vue } from 'vue-class-component';
+import MainPage from '@/components/MainPage.vue'; // @ is an alias to /src
 
+@Options({
+  components: {
+    MainPage,
+  },
+})
+export default class App extends Vue {
+  setup() {
+      /*
+      useSanityClient({
+        projectId: 'bu9errtr',
+        dataset: 'production',
+        useCdn: process.env.NODE_ENV === 'production',
+      })
+      */
+
+    }
+  
+}
+</script>
 <style lang="scss">
 
 #app {

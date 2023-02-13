@@ -46,11 +46,11 @@
 
         <section class="fullpage">
             <!-- 3D Presentation -->
-            <Presentation />
+            <PresentationSection />
         </section>
         <section class="fullpage">
           <!-- Radial menu -->
-            <Skills/>
+            <SkillsSection/>
         </section>
         <section class="fullpage">
           <!-- Radial menu -->
@@ -71,19 +71,19 @@
 import { Options, Vue } from 'vue-class-component';
 import Projects from './Projects.vue';
 import Contact from './Contact.vue';
-import Presentation from './Presentation.vue';
-import Skills from './Skills.vue';
+import PresentationSection from './PresentationSection.vue';
+import SkillsSection from './SkillsSection.vue';
 import Experience from './Experience.vue';
 
 @Options({
   props: {
   },
   components: {
-    Presentation,
+    PresentationSection,
     Contact,
     Projects,
     Experience,
-    Skills
+    SkillsSection
   }
 })
 export default class MainPage extends Vue {
@@ -97,6 +97,7 @@ export default class MainPage extends Vue {
 
 
     calculateSectionOffsets() {
+      //todo make it vuejs
       let sections = document.getElementsByTagName('section');
       let length = sections.length;
       for(let i = 0; i < length; i++) {

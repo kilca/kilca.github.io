@@ -4,14 +4,18 @@
     <div class="content-inner">
       <div class="tab">
         <button v-for="(skill, index) in skills" 
-              v-bind:key="index" class="tablinks" v-on:click="()=>{showSkill(index)}">{{skill.categorie}}</button>
+              v-bind:key="index" class="tablinks" v-on:click="()=>{selectTab(index)}">{{skill.title.fr}}</button>
       </div>
 
       <template v-for="(skill, index) in skills" v-bind:key="skill">
         <div class="tabcontent" v-show="activeTab===index">
-          <div v-for="(techno) in skill.technos" v-bind:key="techno">
-            <h3>{{techno}}</h3>
+          <div v-for="(techno) in skill.skills" v-bind:key="techno.title.en">
+            <div>
+              <!-- scatter ? ou circle menu ?-->
+              <img class="img-skill" :src="techno.image">
+            </div>
           </div>
+
         </div>
       </template>
     </div>
@@ -20,24 +24,16 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
+import { computed, defineComponent, onMounted } from 'vue';
+import { useStore } from 'vuex';
+/*
 
-@Options({
-  props: {
-  }
-})
-export default class Skills extends Vue {
-
-  activeTab=0;
-  
-
-  showSkill(index:number) {
-    this.activeTab = index;
-  }
-
-  
-  data(){
+*/
+export default defineComponent({
+ data(){
     return {
+      activeTab:0 as number
+      /*
       skills:[
         {
           categorie:'Front',
@@ -49,21 +45,45 @@ export default class Skills extends Vue {
           technos:['aaa','bbb','ccc']
         }
       ]
+      */
+    } 
+  },
+  methods: {
+    selectTab(index: number) {
+        this.activeTab=index;
+    }
+  },
+
+  setup(){
+    const store = useStore();
+    const skills = computed(()=> store.getters.skills);
+    onMounted(()=>{
+      store.dispatch("FetchSkills", 1);
+    })
+    return {
+      skills
     }
   }
   
 
-}
+});
 
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 
+.img-skill{
+  width:100px;
+  height:100px;
+  border-radius: 50%;
+  border: solid;
+}
+
 .maindiv{
-    height: 100vh;
+    height: 100%;
     width: 100%;
-    display:grid;
+    display:block;
 }
 
 /* Style the tab */
@@ -107,6 +127,8 @@ export default class Skills extends Vue {
 
 .content-inner{
   display: flex;
+  align-items: center;
+  height: 100%;
 }
 
 </style>

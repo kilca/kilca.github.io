@@ -4,8 +4,9 @@
 
     <div class="left">
      <h1 class="presentation-title">Presentation</h1>
+     <h2> {{presentation.title.fr}}</h2>
       <p>
-          {{presentation.description}}
+          {{presentation.description.fr}}
       </p>
     </div>
       <div class="right">
@@ -15,26 +16,24 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
 import Game from './helper/Game.vue';
+import {useStore} from 'vuex';
+import { computed, onMounted } from '@vue/runtime-core';
 
-@Options({
-  props: {
-  },
-  components: {
+export default{
+
+  components:{
     Game
-  }
-})
-export default class Presentation extends Vue {
-
+  },
+  /*
   isLoaded = false;
 
   click3D(){
     if (!this.isLoaded){
       this.isLoaded = true;
     }
-  }
-
+  }*/
+  /*
   data(){
     return {
       presentation:{
@@ -42,8 +41,19 @@ export default class Presentation extends Vue {
               et aime aussi développer des jeux ou des projets sur mon temps libre`
       }
     }
-  }
+  },
+  */
 
+  setup(){
+    const store = useStore();
+    const presentation = computed(()=> store.getters.presentation);
+    onMounted(()=>{
+      store.dispatch("FetchPresentation", 1);
+    })
+    return {
+      presentation
+    }
+  }
 
 }
 

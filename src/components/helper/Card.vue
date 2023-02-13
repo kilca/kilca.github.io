@@ -5,9 +5,8 @@
       <img src="img_avatar.png" alt="Avatar" style="width:300px;height:300px;">
     </div>
     <div class="flip-card-back">
-      <h1>Nom</h1> 
-      <p>Description</p> 
-      <p>Description2</p>
+      <h1>{{nom}}</h1> 
+      <p>{{description}}</p> 
     </div>
   </div>
 </div>
@@ -18,14 +17,13 @@ import { Options, Vue } from 'vue-class-component';
 
 @Options({
   props: {
-    image:'',
-    nom:'',
-    description:'',
-    description2:''//a del
+    image:String,
+    nom:String,
+    description:String,
   }
 })
 export default class Card extends Vue {
-
+  //todo : link to  Modal overlay + tags + links to ref
 }
 
 </script>
