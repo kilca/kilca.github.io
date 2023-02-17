@@ -22,7 +22,7 @@ export default defineType({
 
   preview: {
     select: {
-      title: 'title.en',
+      title: 'title',
       media: 'mainImage',
     },
   },

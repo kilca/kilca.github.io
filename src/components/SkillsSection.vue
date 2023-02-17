@@ -9,11 +9,10 @@
 
       <template v-for="(skill, index) in skills" v-bind:key="skill">
         <div class="tabcontent" v-show="activeTab===index">
-          <div v-for="(techno) in skill.skills" v-bind:key="techno.title.en">
-            <div>
+          <div class="img-skill-container" v-for="(techno) in skill.skills" v-bind:key="techno.title.en">
               <!-- scatter ? ou circle menu ?-->
-              <img class="img-skill" :src="techno.image">
-            </div>
+              <img class="img-skill" :src="techno.image" />
+                <span class="img-skill-title">{{techno.title}}</span>
           </div>
 
         </div>
@@ -32,7 +31,7 @@ import { useStore } from 'vuex';
 export default defineComponent({
  data(){
     return {
-      activeTab:0 as number
+      activeTab:0 as number,
       /*
       skills:[
         {
@@ -77,7 +76,7 @@ export default defineComponent({
   width:100px;
   height:100px;
   border-radius: 50%;
-  border: solid;
+  border: 2px solid #857c7c6b;
 }
 
 .maindiv{
@@ -89,6 +88,35 @@ export default defineComponent({
 /* Style the tab */
 .tab {
   width: 30%;
+  display:flex;
+}
+
+.img-skill-container{
+  position: relative;
+  text-align: center;
+  color: white;
+  flex: 1 0 auto;
+  flex-basis: 100px;
+}
+.img-skill-title{
+  display:none;
+}
+
+.img-skill-container:hover > .img-skill{
+  filter: brightness(0.7);
+  border: 4px solid #857c7c6b;
+}
+
+.img-skill-container:hover > .img-skill-title{
+  display: block;
+  color: red;
+}
+
+.img-skill-title{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 /* Style the buttons inside the tab */
@@ -121,6 +149,8 @@ export default defineComponent({
 /* Style the tab content */
 .tabcontent {
   width: 70%;
+  align-items: center;
+  height:100%;
   display: flex;
   justify-content: space-evenly;
 }
@@ -128,6 +158,7 @@ export default defineComponent({
 .content-inner{
   display: flex;
   align-items: center;
+  flex-direction: column;
   height: 100%;
 }
 

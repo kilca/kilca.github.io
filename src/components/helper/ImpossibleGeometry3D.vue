@@ -25,7 +25,7 @@ import {
   props: {
   }
 })
-export default class Game extends Vue {
+export default class ImpossibleGeometry3D extends Vue {
 
 
     /*

@@ -2,11 +2,6 @@
 <div class="maindiv">
     <h1>Projets</h1>  
     <div class="content-inner">
-      <div class="tab">
-        <button v-for="(projet, index) in projets" 
-              v-bind:key="index" class="tablinks" v-on:click="()=>{showProject(index)}">{{projet.name}}</button>
-      </div>
-
       <template v-for="(projet, index) in projets" v-bind:key="projet">
         <div class="tabcontent" v-show="activeTab===index">
           <div v-for="(card) in projet.cards" v-bind:key="card">
@@ -105,7 +100,6 @@ export default class Projects extends Vue {
 
 /* Style the tab */
 .tab {
-  width: 30%;
   display: flex;
 }
 
@@ -143,6 +137,7 @@ export default class Projects extends Vue {
   margin-top:40px;
   flex-wrap:wrap;
   align-content: flex-start;
+  gap: 8px;
 }
 
 .content-inner{

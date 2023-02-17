@@ -3,46 +3,27 @@
     <div class="content-inner">
 
     <div class="left">
-     <h1 class="presentation-title">Presentation</h1>
-     <h2> {{presentation.title.fr}}</h2>
+      <h1 class="presentation-title">{{presentation.title.fr}}</h1>
       <p>
           {{presentation.description.fr}}
       </p>
     </div>
-      <div class="right">
-        <Game />
-    </div>
+    <div class="right">
+      <ImpossibleGeometry3D />
+  </div>
   </div>
 </template>
 
 <script lang="ts">
-import Game from './helper/Game.vue';
+import ImpossibleGeometry3D from './helper/ImpossibleGeometry3D.vue';
 import {useStore} from 'vuex';
 import { computed, onMounted } from '@vue/runtime-core';
 
 export default{
 
   components:{
-    Game
+    ImpossibleGeometry3D
   },
-  /*
-  isLoaded = false;
-
-  click3D(){
-    if (!this.isLoaded){
-      this.isLoaded = true;
-    }
-  }*/
-  /*
-  data(){
-    return {
-      presentation:{
-        description:` Actuellement fraichement diplomé, je travaille en temps que full stack développeur
-              et aime aussi développer des jeux ou des projets sur mon temps libre`
-      }
-    }
-  },
-  */
 
   setup(){
     const store = useStore();
@@ -73,7 +54,9 @@ h1{
 
 .content-inner{
   display: flex;
+  width: 100%;
   align-items: center;
+  justify-content: center;
 }
 
 .griddiv{
@@ -94,13 +77,30 @@ h1{
 }
 
 .left {
-  width:600px;
-  margin-left:200px;
+  margin-left:50px;
+  width:50%;
+    // Half/Tablet screen 
+  @media (max-width: 1400px) {
+    margin-left:20px;
 
+  }
+  // Mobile screen 
+  @media (max-width: 450px) {
+    margin-left:0px;
+  }
 
 }
 .right {
-  margin-right: 100px;
+  width:50%;
+  // Tablet screen 
+  @media (max-width: 1400px) {
+    display: none;
+  }
+  // Mobile screen 
+  @media (max-width: 450px) {
+    display: none;
+  }
+
 }
 
 </style>

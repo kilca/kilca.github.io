@@ -37,6 +37,23 @@ export default class Card extends Vue {
   width: 300px;
   height: 300px;
   perspective: 1000px;
+
+  // Half Screen
+  @media (max-width: 1400px) {
+    width: 200px;
+    height: 200px;
+  }
+  // Tablet screen 
+  @media (max-width: 768px) {
+    width: 150px;
+    height: 150px;
+  }
+  // Mobile screen 
+  @media (max-width: 450px) {
+    width: 100px;
+    height: 100px;
+  }
+
 }
 
 .flip-card-inner {
@@ -62,11 +79,13 @@ export default class Card extends Vue {
 }
 
 .flip-card-front {
+  border-radius: 10px;
   background-color: #bbb;
   color: black;
 }
 
 .flip-card-back {
+  border-radius: 10px;
   background-color: #2980b9;
   color: white;
   transform: rotateY(180deg);

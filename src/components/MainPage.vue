@@ -4,8 +4,8 @@
       <div class="sidebar">
       <div class="presentation">
           <div>
-            <h1 class="salut">Bienvenue sur le site de</h1>
-            <h1>
+            <img class="img-profile" src="me.jpg" />
+            <h1 class="fullname">
               Kilian Cannet
             </h1>
             <h2>
@@ -36,6 +36,11 @@
                   <svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="linkedin-in" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-linkedin-in fa-w-14 fa-5x"><path fill="currentColor" d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z" class=""></path></svg>
                 </a>
               </li>
+              <li>
+                <a alt="linkedin" href="https://www.linkedin.com/in/kilian-cannet-aa0911179/">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="48" height="48"><path fill="none" d="M0 0h24v24H0z"/><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm12.3 10.94l.955.954v.05h-4.921v-.05l1.004-.954c.1-.1.15-.2.15-.351V9.664c0-.252 0-.603.051-.904l-3.314 8.285h-.05L7.76 9.412c-.05-.2-.1-.2-.15-.3v5.02c-.051.352 0 .653.15.955l1.356 1.807v.05H5.5v-.05l1.356-1.858c.15-.3.2-.652.15-.954V8.56c0-.251-.05-.553-.25-.753L5.851 6.55V6.5h3.515l2.912 6.478L14.84 6.5h3.415v.05l-.954 1.105c-.1.1-.15.251-.15.351v7.633c0 .1.05.251.15.301z" fill="rgba(255,255,255,1)"/></svg>
+                </a>
+              </li>
             </ul>
           </div>
       </div>
@@ -44,19 +49,20 @@
       <!-- Page content -->
       <div class="content">
 
-        <section class="fullpage">
+        <section class="fullpage1 fullpage">
+          <div v-show="activeSection === 0" id="stars3"></div>
             <!-- 3D Presentation -->
             <PresentationSection />
         </section>
-        <section class="fullpage">
+        <section class="fullpage2 fullpage">
           <!-- Radial menu -->
             <SkillsSection/>
         </section>
-        <section class="fullpage">
+        <section class="fullpage fullpage3">
           <!-- Radial menu -->
             <Projects/>
         </section>
-        <section class="fullpage">
+        <section class="fullpage fullpage4">
           <!-- ??? -->
             <Contact/>
         </section>
@@ -154,7 +160,7 @@ export default class MainPage extends Vue {
       
       setTimeout(() => {
         this.inMove = false;
-      }, 400);
+      }, 600);
       
     }
 
@@ -208,31 +214,45 @@ export default class MainPage extends Vue {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 
-$background-side-color:#0F2027;
-$background-content-color:#2c5364;
-$text-content-color: #d8e2eb;
+@import "./stars.scss";
+
+$color1:#242934;
+$color2:#E4E2E0;
+$color3:#1c222e;
+$color5:#14161a;
+$color6:#45464b;
+
+
+
+$background-sidebar-color:$color5;
+$background-content-color:$color1;
+$fullpage-color:$color3;
+$text-content-color: $color2;
 $text-side-color: #fff;
-$sidebar-size : 360px;
-$background-side-gradient: linear-gradient(90deg, #0F2027 0%,rgba(18,32,61,1) 50%,#2c5364 100%);
+$sidebar-size : 400px;
 
-
-.salut{
-  font-size: 0.9em; 
-  font-weight: 400;
-  margin: 30px 0px 10px;
-  text-align: left;
+.fullname{
+  color:#1a997b;
 }
+
+.img-profile{
+  width:240px;
+  height: 240px;
+  border-radius: 50%;
+  margin-top:5px;
+  margin-bottom: 5px;
+  border: 3px solid #857c7cb9;
+}
+
 
 /* The side navigation menu */
 .sidebar {
-  box-shadow: 5px 5px 5px #686d8f;
   margin: 0;
   padding: 0;
   position: fixed;
   height: 100%;
   width: $sidebar-size;
-  background-color: $background-side-color;
-  //background: $background-side-gradient;
+  background-color: $background-sidebar-color;
 
   overflow: auto;
   overflow-y: hidden; /* Hide vertical scrollbar */
@@ -264,10 +284,11 @@ $background-side-gradient: linear-gradient(90deg, #0F2027 0%,rgba(18,32,61,1) 50
   height:100%;
 }
 
-.presentation h1{
+.presentation > h1{
   color:$text-side-color;
 }
 .presentation h2{
+  font-style: italic;
   color:$text-side-color;
 }
 
@@ -292,9 +313,8 @@ p{
 /* Page content. The value of the margin-left property should match the value of the sidebar's width property */
 div.content {
   margin-left: $sidebar-size;
-  padding: 1px 16px;
-  //background-color: $background-content-color;
-  background: $background-side-gradient;
+  // padding: 1px 16px;
+  background: $background-content-color;
   overflow-y: hidden; /* Hide vertical scrollbar */
   overflow-x: hidden; /* Hide horizontal scrollbar */
 }
@@ -318,6 +338,11 @@ div.content {
   }
 }
 
+.fullpage2{
+  background:linear-gradient($fullpage-color 60%,$background-content-color);
+}
+
+
 .fullpage {
   height: 100vh;
   width: 100%;
@@ -328,7 +353,6 @@ div.content {
 }
 
 h1 {
-  font-size: 6em;
   margin: 0;
   text-align: center;
   padding: 0 1rem;
@@ -381,7 +405,8 @@ h1.black {
 .sections-menu .menu-point {
   width: 10px;
   height: 24px;
-  background-color: rgb(79, 77, 226);
+  font-size:20px;
+  background-color: rgb(43 51 84);
   display: block;
   margin: 1rem 0;
   opacity: .6;
