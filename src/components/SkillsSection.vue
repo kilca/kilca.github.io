@@ -2,17 +2,14 @@
 <div class="maindiv">
     <h1>Compétences</h1>  
     <div class="content-inner">
-      <div class="tab">
-        <button v-for="(skill, index) in skills" 
-              v-bind:key="index" class="tablinks" v-on:click="()=>{selectTab(index)}">{{skill.title.fr}}</button>
-      </div>
-
-      <template v-for="(skill, index) in skills" v-bind:key="skill">
-        <div class="tabcontent" v-show="activeTab===index">
+      <template v-for="(skill) in skills" v-bind:key="skill">
+        <h3>{{skill.title.fr}}</h3>
+        <div class="tabcontent">
           <div class="img-skill-container" v-for="(techno) in skill.skills" v-bind:key="techno.title.en">
               <!-- scatter ? ou circle menu ?-->
               <img class="img-skill" :src="techno.image" />
-                <span class="img-skill-title">{{techno.title}}</span>
+                <h5 class="test">{{techno.title}}</h5>
+
           </div>
 
         </div>
@@ -32,19 +29,6 @@ export default defineComponent({
  data(){
     return {
       activeTab:0 as number,
-      /*
-      skills:[
-        {
-          categorie:'Front',
-          technos:['ddd','fff','ggg']
-        }
-        ,
-        {
-          categorie:'Back',
-          technos:['aaa','bbb','ccc']
-        }
-      ]
-      */
     } 
   },
   methods: {
@@ -72,10 +56,27 @@ export default defineComponent({
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 
+.test{
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  padding: 0.25em 1em;
+  font-size: 14px;
+  line-height: 1.2;
+  text-align: center;
+  color: #fff;
+  background: rgba(70, 70, 70, 0.95);
+  background: #333;
+  white-space: nowrap;
+  border-radius: 1em;
+  position: absolute;
+  transform: translate(-50%, 150%);
+}
+
 .img-skill{
-  width:100px;
-  height:100px;
-  border-radius: 50%;
+  width:90px;
+  height:90px;
+  border-radius: 25%;
   border: 2px solid #857c7c6b;
 }
 
@@ -119,13 +120,16 @@ export default defineComponent({
   transform: translate(-50%, -50%);
 }
 
+.tab{
+  justify-content: space-around;
+}
+
 /* Style the buttons inside the tab */
 .tab button {
   display: block;
   background-color: darkcyan;
   color: white;
   padding: 22px 16px;
-  width: 100%;
   border: 1px solid blanchedalmond;
   outline: none;
   text-align: left;
@@ -149,7 +153,7 @@ export default defineComponent({
 /* Style the tab content */
 .tabcontent {
   width: 70%;
-  align-items: center;
+  align-items: flex-start;
   height:100%;
   display: flex;
   justify-content: space-evenly;

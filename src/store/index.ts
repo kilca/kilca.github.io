@@ -1,19 +1,25 @@
 import {createStore} from 'vuex';
 import sanity from "../services/client"
 
-interface LocaleString{
+export interface LocaleString{
     en: string,
     fr: string,
 }
 
-const emptyLocaleString : LocaleString = {
+export const emptyLocaleString : LocaleString = {
     en:'',
     fr:''
 }
 
-type url = string;
+export type url = string;
 
-interface Skills{
+export interface ProjectInfo{
+    name:LocaleString,
+    description: LocaleString,
+    images:url[]
+}
+
+export interface Skills{
     description:LocaleString,
     title:LocaleString,
     skills: {
@@ -22,19 +28,23 @@ interface Skills{
     }[]
 }
 
-interface Presentation{
+export interface Presentation{
     description:LocaleString,
     title:LocaleString,
 }
 
-interface Project{
+export interface Project{
     description:LocaleString,
     title:LocaleString,
-    projects: {
-        description:LocaleString,
-        title:LocaleString,
-        image:url
-    }[]
+    image:url
+    skills: {
+        title:string
+        image:url// https://github.com/marwin1991/profile-technology-icons#-tools
+    }[],
+    category?:string,
+    info: ProjectInfo,
+    urlLive: string,
+    urlCode: string
 }
 
 const store = createStore({
@@ -58,8 +68,8 @@ const store = createStore({
         SET_PRESENTATION (state,presentation){
             state.presentation = presentation;
         },
-        SET_PROJECTS (state,project){
-            state.presentation = project;
+        SET_PROJECTS (state,projects){
+            state.projects = projects;
         }
     },
     actions:{
@@ -91,17 +101,28 @@ const store = createStore({
         },
         FetchProjects({commit},limit=null){
             const query = `
-            *[_type == "projectCategory"]
+            *[_type == "project"]
             {
               description,
               title,
-              projects[]->{
+              "image":mainImage.asset->url,
+              category,
+              skills[]->{
                 title,
                 "image":mainImage.asset->url
-              }
+              },
+              urlCode,
+              urlLive,
+               "info": *[_id == ^.info._ref][0]{
+                description,
+                title,
+                "images":images[].asset->url
+               }
+              
             }`;
-            sanity.fetch(query).then((project:Project[]) =>{
-                commit('SET_PROJECTS',project);
+            sanity.fetch(query).then((projects:Project[]) =>{
+                console.log('**projects fetched',projects);
+                commit('SET_PROJECTS',projects);
             });
         }
     }

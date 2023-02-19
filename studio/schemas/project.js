@@ -23,6 +23,47 @@ export default defineType({
         hotspot: true,
       },
     }),
+    defineField({
+      name:'category',
+      type: 'object',
+      fields: [
+        {
+          title: 'Category',
+          name: 'category',
+          type: 'reference',
+          to: [{type: 'projectCategory'}]
+        }
+      ]
+    }),
+    defineField({
+      name: 'urlCode',
+      title: 'Url Code',
+      type: 'string',
+    }),
+    defineField({
+      name: 'urlLive',
+      title: 'Url Live',
+      type: 'string',
+    }),
+    defineField({
+      title: 'Info',
+      name: 'info',
+      type: 'reference',
+      to: [{type: 'projectInfo'}]
+    }),
+    defineField({
+      name: 'skills',
+      title: 'Skills',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          to: [
+            {type: 'skill'}
+          ]
+        }
+      ]
+    }),
   ],
 
   preview: {

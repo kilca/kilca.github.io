@@ -14,20 +14,7 @@ export default defineType({
       name: 'description',
       title: 'Description',
       type: 'localeString',
-    }),
-    defineField({
-      name: 'projects',
-      title: 'Projects',
-      type: 'array',
-      of: [
-        {
-          type: 'reference',
-          to: [
-            {type: 'project'}
-          ]
-        }
-      ]
-    }),
+    })
   ],
   preview: {
     select: {

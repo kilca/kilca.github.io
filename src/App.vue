@@ -27,9 +27,11 @@ export default class App extends Vue {
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&family=Raleway:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&family=Poppins:wght@300&family=Raleway:wght@300&display=swap');
 
 $Fredoka: 'Libre Baskerville';
 $Railway: 'Raleway';
+$Poppins: 'Poppins';
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -39,9 +41,9 @@ $Railway: 'Raleway';
 }
 
 h1{
-  color:beige;
+  color:#2980b9;
   font-size:3em;
-  font-family: $Fredoka, sans-serif;
+  font-family: $Poppins;
 }
 
 p{

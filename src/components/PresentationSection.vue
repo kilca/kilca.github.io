@@ -24,7 +24,6 @@ export default{
   components:{
     ImpossibleGeometry3D
   },
-
   setup(){
     const store = useStore();
     const presentation = computed(()=> store.getters.presentation);
