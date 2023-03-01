@@ -4,9 +4,20 @@
 
     <div class="left">
       <h1 class="presentation-title">{{presentation.title.fr}}</h1>
-      <p>
-          {{presentation.description.fr}}
-      </p>
+      <br/>
+      <div class="presentation-description">
+        <p>
+        Ingénieur Développeur Full Stack basé à Paris, passionné par tout ce qui touche à l'informatique et aux nouvelles technologies.
+        </p>
+
+        <p>
+          En plus de mon travail professionnel, j'aime consacrer mon temps libre à réaliser différents projets personnels dans divers domaines
+          </p> 
+        
+        <p>Je suis toujours à la recherche de nouveaux défis en matière de développement, et je suis ouvert à toutes 
+          les opportunités de travail sur des projets passionnants qui me permettent de repousser mes limites et de continuer à apprendre.
+        </p>
+      </div>
     </div>
     <div class="right">
       <ImpossibleGeometry3D />
@@ -42,9 +53,17 @@ export default{
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 
+li{
+  list-style-type:none;
+}
+
+.presentation-description{
+  font-size:calc(0.8vw + 0.8vh);
+}
+
 .presentation-title{
-  font-size:40px;
-  margin-top:240px;
+  font-size:50px;
+  margin-top:180px;
 }
 
 h1{

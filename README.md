@@ -35,7 +35,7 @@ cd sanity
 
 ## Sanity init
 
-use coupon to *2 your free plan
+tip : use any youtuber coupon to *2 your free plan perfs
 
 ```
 sanity init
@@ -43,5 +43,5 @@ sanity init
 
 ## Sanity start
 ```
-npm run start
+npm run dev
 ```

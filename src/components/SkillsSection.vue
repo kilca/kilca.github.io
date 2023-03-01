@@ -1,6 +1,6 @@
 <template>
 <div class="maindiv">
-    <h1>Compétences</h1>  
+    <h1>Skills</h1>  
     <div class="content-inner">
       <template v-for="(skill) in skills" v-bind:key="skill">
         <h3>{{skill.title.fr}}</h3>
@@ -9,22 +9,17 @@
               <!-- scatter ? ou circle menu ?-->
               <img class="img-skill" :src="techno.image" />
                 <h5 class="test">{{techno.title}}</h5>
-
           </div>
-
         </div>
       </template>
     </div>
-
 </div>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, onMounted } from 'vue';
 import { useStore } from 'vuex';
-/*
 
-*/
 export default defineComponent({
  data(){
     return {
@@ -48,7 +43,6 @@ export default defineComponent({
     }
   }
   
-
 });
 
 </script>
@@ -74,10 +68,14 @@ export default defineComponent({
 }
 
 .img-skill{
-  width:90px;
-  height:90px;
+  width:140px;
+  height:140px;
   border-radius: 25%;
   border: 2px solid #857c7c6b;
+}
+
+h3{
+  color:white;
 }
 
 .maindiv{
@@ -96,8 +94,10 @@ export default defineComponent({
   position: relative;
   text-align: center;
   color: white;
-  flex: 1 0 auto;
+  /*flex: 1 0 auto;
   flex-basis: 100px;
+  */
+  flex: 0 0 18.333333%;
 }
 .img-skill-title{
   display:none;
@@ -152,11 +152,12 @@ export default defineComponent({
 
 /* Style the tab content */
 .tabcontent {
-  width: 70%;
+  width: 80%;
   align-items: flex-start;
   height:100%;
   display: flex;
   justify-content: space-evenly;
+  flex-wrap:wrap;
 }
 
 .content-inner{

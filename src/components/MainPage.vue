@@ -5,7 +5,7 @@
       <div class="presentation">
           <div>
             <div class="sidebar-toggle">
-              <LanguageToggle/>
+              <LanguageToggle v-if="false"/>
               <DarkLightToggle v-if="false"/>
             </div>
             <img class="img-profile" src="me.jpg" />
@@ -19,9 +19,9 @@
           <div class="sections-menu">
             <span
               class="menu-point"
-              v-bind:class="{active: activeSection == index}"
+              v-bind:class="{active: getSectionIndex() == index}"
               v-on:click="scrollToSection(index)"
-              v-for="(offset, index) in offsets"
+              v-for="(section, index) in sections"
               v-bind:key="index">
                 <h3 class="section-name">
                   {{sections[index]}}
@@ -57,7 +57,7 @@
             <!-- 3D Presentation -->
             <PresentationSection />
         </section>
-        <section class="fullpage">
+        <section class="fullpage fullotherpage">
           <!-- Radial menu -->
             <SkillsSection/>
         </section>
@@ -65,7 +65,7 @@
           <!-- Radial menu -->
             <ProjectsSection/>
         </section>
-        <section class="fullpage">
+        <section class="fullpage fullotherpage">
           <!-- ??? -->
             <Contact/>
         </section>
@@ -103,116 +103,59 @@ export default class MainPage extends Vue {
 
 
     inMove = false;
-    activeSection= 0;
     offsets : number[]= [];
     sections = ['Presentation','Compétences','Projets','Contact']
-    touchStartY= 0;
+    windowTop= 0;
 
+    getSectionIndex(){
+      for( let i =0;i<this.offsets.length;i++){
+        if (this.offsets[i] > this.windowTop){
+          return i-1;
+        }
+      }
+      return this.offsets.length -1;
+    }
 
     calculateSectionOffsets() {
       //todo make it vuejs
       let sections = document.getElementsByTagName('section');
       let length = sections.length;
       for(let i = 0; i < length; i++) {
-        let sectionOffset = sections[i].offsetTop;
+        let sectionOffset = sections[i].offsetTop -100;
         this.offsets.push(sectionOffset);
       }
-    }
-
-    handleMouseWheel(e : any ) {
-      if (e.deltaY  < 30 && !this.inMove) {
-        this.moveDown();
-      } else if (e.deltaY  > 30 && !this.inMove) {
-        this.moveUp();
-      }
-        
-      e.preventDefault();
-      return false;
-    }
-
-    handleMouseWheelDOM(e : any ) {
-      if (e.detail > 0 && !this.inMove) {
-        this.moveUp();
-      } else if (e.detail < 0 && !this.inMove) {
-        this.moveDown();
-      }
-      
-      return false;
-    }
-
-    moveDown() {
-      this.inMove = true;
-      this.activeSection--;
-        
-      if(this.activeSection < 0) this.activeSection = this.offsets.length - 1;
-        
-      this.scrollToSection(this.activeSection, true);
-    }
-
-    moveUp() {
-      this.inMove = true;
-      this.activeSection++;
-        
-      if(this.activeSection > this.offsets.length - 1) this.activeSection = 0;
-        
-      this.scrollToSection(this.activeSection, true);
     }
 
     scrollToSection(id : number, force = false) {
       if(this.inMove && !force) return false;
       
-      this.activeSection = id;
       this.inMove = true;
       document.getElementsByTagName('section')[id].scrollIntoView({behavior: 'smooth'});
-      
       setTimeout(() => {
         this.inMove = false;
       }, 600);
       
     }
 
-    touchStart(e : TouchEvent) {
-      e.preventDefault();
-      
-      this.touchStartY = e.touches[0].clientY;
-    }
+  onScroll(e:any) {
+    this.windowTop = window?.top?.scrollY as number; /* or: e.target.documentElement.scrollTop */
+    console.log('windowTop',this.windowTop);
+  }
 
-    touchMove(e : TouchEvent) {
-      if(this.inMove) return false;
-      e.preventDefault();
-      
-      const currentY = e.touches[0].clientY;
-      
-      if(this.touchStartY < currentY) {
-        this.moveDown();
-      } else {
-        this.moveUp();
-      }
-      
-      this.touchStartY = 0;
-      return false;
-    }
-  
-
-  mounted() {
+  mounted(){
     let body : HTMLElement = document.querySelector('body') as HTMLElement;
-    body.setAttribute("style", "overflow-y: hidden; margin:0;");
-    console.log('ceaed');
+    body.setAttribute("style", "margin:0;");
     this.calculateSectionOffsets();
-    
-    window.addEventListener('DOMMouseScroll', (e) =>{this.handleMouseWheelDOM(e)});  // Mozilla Firefox
-    window.addEventListener('mousewheel', this.handleMouseWheel, { passive: false }); // Other browsers
-    
-    window.addEventListener('touchstart', this.touchStart, { passive: false }); // mobile devices
-    window.addEventListener('touchmove', this.touchMove, { passive: false }); // mobile devices
+    console.log("offsets",this.offsets);
+
+    window.addEventListener("scroll", this.onScroll)
+
   }
-  destroyed() {
-    window.removeEventListener('mousewheel', this.handleMouseWheel);  // Other browsers
-    window.removeEventListener('DOMMouseScroll', this.handleMouseWheelDOM); // Mozilla Firefox
-    
-    window.removeEventListener('touchstart', this.touchStart); // mobile devices
-    window.removeEventListener('touchmove', this.touchMove); // mobile devices
+  
+  beforeDestroy() {
+    window.removeEventListener("scroll", this.onScroll)
   }
+  
 
 
 }
@@ -223,8 +166,8 @@ export default class MainPage extends Vue {
 
 $color1:#242934;
 $color2:#E4E2E0;
-$color3:#1c222e;
-$color5:#14161a;
+$color3:#202123;
+$color5:#0a0a0c;
 $color6:#45464b;
 
 
@@ -235,6 +178,10 @@ $background-content-color:$color3;
 $text-content-color: $color2;
 $text-side-color: #fff;
 $sidebar-size : 400px;
+
+.selected{
+  color:blue;
+}
 
 .sidebar-toggle{
   display: flex;
@@ -347,6 +294,12 @@ div.content {
   }
 }
 
+.fullotherpage{
+  background-color:#181717;
+}
+
+
+
 .fullpage {
   height: 100vh;
   width: 100%;
@@ -360,6 +313,7 @@ h1 {
   margin: 0;
   text-align: center;
   padding: 0 1rem;
+  
 }
 
 p {

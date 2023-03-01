@@ -48,7 +48,6 @@ h1{
 
 p{
   color:white;
-  font-size:1.5em;
   font-family: $Fredoka, serif;
 }
 

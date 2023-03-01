@@ -3,11 +3,11 @@
 <div class="flip-card">
   <div class="flip-card-inner">
     <div class="flip-card-front">
-      <img :src="project.image" alt="Project Overview" style="border-radius: 10px;width:300px;height:300px;">
+      <img :src="project.image" alt="Project Overview" class="flip-card-img">
     </div>
     <div class="flip-card-back">
       <h2 class="project-card-title">{{project.title.en}}</h2> 
-      <p>{{project.description.en}}</p>
+      <p>{{project.description.en ? project.description.en : ""}}</p>
       <div class="project-skills">
         <!-- Code -->
         <button title="See the code" class="project-link-btn" @click="this.redirectToCode()" v-if="project.urlCode != null" >
@@ -133,12 +133,19 @@ export default defineComponent({
   transform: rotateY(180deg);
 }
 
+.flip-card-img{
+  width:100%;
+  height: 100%;
+  border-radius: 10px;
+}
+
 .flip-card-front, .flip-card-back {
   position: absolute;
   width: 100%;
   height: 100%;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
+  border-radius: 10px;
 }
 
 .flip-card-front {
@@ -148,6 +155,9 @@ export default defineComponent({
 }
 
 .flip-card-back {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
   border-radius: 10px;
   background-color: #2980b9;
   color: white;

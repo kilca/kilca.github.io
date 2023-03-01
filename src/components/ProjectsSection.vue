@@ -102,7 +102,7 @@ export default defineComponent({
 
 /* Style the tab content */
 .tabcontent {
-  width: 70%;
+  width: 80%;
   display: flex;
   justify-content: center;
   margin-top:40px;
@@ -110,6 +110,7 @@ export default defineComponent({
   align-content: flex-start;
   gap: 8px;
 }
+
 
 .content-inner{
   display: flex;
