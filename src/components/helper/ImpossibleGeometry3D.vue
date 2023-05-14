@@ -25,7 +25,7 @@ import {
   props: {
   }
 })
-export default class Game extends Vue {
+export default class ImpossibleGeometry3D extends Vue {
 
 
     /*
@@ -304,8 +304,10 @@ export default class Game extends Vue {
 
     mounted() {
         const canvas = document.getElementById('canvas')?.appendChild(this.renderer.domElement);
-        canvas.style.height = "300px";
-        canvas.style.width = "600px";
+        if (canvas != null){
+            canvas.style.height = "300px";
+            canvas.style.width = "600px";
+        }
         //this.$refs.canvas.appendChild(this.renderer.domElement)
         requestAnimationFrame(this.animate)
         //this.animate()

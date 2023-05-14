@@ -4,8 +4,12 @@
       <div class="sidebar">
       <div class="presentation">
           <div>
-            <h1 class="salut">Bienvenue sur le site de</h1>
-            <h1>
+            <div class="sidebar-toggle">
+              <LanguageToggle v-if="false"/>
+              <DarkLightToggle v-if="false"/>
+            </div>
+            <img class="img-profile" src="me.jpg" />
+            <h1 class="fullname">
               Kilian Cannet
             </h1>
             <h2>
@@ -15,9 +19,9 @@
           <div class="sections-menu">
             <span
               class="menu-point"
-              v-bind:class="{active: activeSection == index}"
+              v-bind:class="{active: getSectionIndex() == index}"
               v-on:click="scrollToSection(index)"
-              v-for="(offset, index) in offsets"
+              v-for="(section, index) in sections"
               v-bind:key="index">
                 <h3 class="section-name">
                   {{sections[index]}}
@@ -36,6 +40,11 @@
                   <svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="linkedin-in" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-linkedin-in fa-w-14 fa-5x"><path fill="currentColor" d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z" class=""></path></svg>
                 </a>
               </li>
+              <li>
+                <a alt="cv" href="https://www.google.fr">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                </a>
+              </li>
             </ul>
           </div>
       </div>
@@ -46,17 +55,17 @@
 
         <section class="fullpage">
             <!-- 3D Presentation -->
-            <Presentation />
+            <PresentationSection />
+        </section>
+        <section class="fullpage fullotherpage">
+          <!-- Radial menu -->
+            <SkillsSection/>
         </section>
         <section class="fullpage">
           <!-- Radial menu -->
-            <Skills/>
+            <ProjectsSection/>
         </section>
-        <section class="fullpage">
-          <!-- Radial menu -->
-            <Projects/>
-        </section>
-        <section class="fullpage">
+        <section class="fullpage fullotherpage">
           <!-- ??? -->
             <Contact/>
         </section>
@@ -69,136 +78,85 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import Projects from './Projects.vue';
+import ProjectsSection from './ProjectsSection.vue';
 import Contact from './Contact.vue';
-import Presentation from './Presentation.vue';
-import Skills from './Skills.vue';
+import PresentationSection from './PresentationSection.vue';
+import SkillsSection from './SkillsSection.vue';
 import Experience from './Experience.vue';
+import DarkLightToggle from './helper/DarkLightToggle.vue';
+import LanguageToggle from './helper/LanguageToggle.vue';
 
 @Options({
   props: {
   },
   components: {
-    Presentation,
+    PresentationSection,
     Contact,
-    Projects,
+    ProjectsSection,
     Experience,
-    Skills
+    SkillsSection,
+    DarkLightToggle,
+    LanguageToggle,
   }
 })
 export default class MainPage extends Vue {
 
 
     inMove = false;
-    activeSection= 0;
     offsets : number[]= [];
-    sections = ['Presentation','Compétences','Projets','Contact']
-    touchStartY= 0;
+    sections = ['About','Skills','Projets','Contact']
+    windowTop= 0;
 
+    getSectionIndex(){
+      for( let i =0;i<this.offsets.length;i++){
+        if (this.offsets[i] > this.windowTop){
+          return i-1;
+        }
+      }
+      return this.offsets.length -1;
+    }
 
     calculateSectionOffsets() {
+      //todo make it vuejs
       let sections = document.getElementsByTagName('section');
+      this.offsets = [];
       let length = sections.length;
       for(let i = 0; i < length; i++) {
-        let sectionOffset = sections[i].offsetTop;
+        let sectionOffset = sections[i].offsetTop -100;
         this.offsets.push(sectionOffset);
       }
-    }
-
-    handleMouseWheel(e : any ) {
-      if (e.deltaY  < 30 && !this.inMove) {
-        this.moveDown();
-      } else if (e.deltaY  > 30 && !this.inMove) {
-        this.moveUp();
-      }
-        
-      e.preventDefault();
-      return false;
-    }
-
-    handleMouseWheelDOM(e : any ) {
-      if (e.detail > 0 && !this.inMove) {
-        this.moveUp();
-      } else if (e.detail < 0 && !this.inMove) {
-        this.moveDown();
-      }
-      
-      return false;
-    }
-
-    moveDown() {
-      this.inMove = true;
-      this.activeSection--;
-        
-      if(this.activeSection < 0) this.activeSection = this.offsets.length - 1;
-        
-      this.scrollToSection(this.activeSection, true);
-    }
-
-    moveUp() {
-      this.inMove = true;
-      this.activeSection++;
-        
-      if(this.activeSection > this.offsets.length - 1) this.activeSection = 0;
-        
-      this.scrollToSection(this.activeSection, true);
     }
 
     scrollToSection(id : number, force = false) {
       if(this.inMove && !force) return false;
       
-      this.activeSection = id;
       this.inMove = true;
       document.getElementsByTagName('section')[id].scrollIntoView({behavior: 'smooth'});
-      
       setTimeout(() => {
         this.inMove = false;
-      }, 400);
+      }, 600);
       
     }
 
-    touchStart(e : TouchEvent) {
-      e.preventDefault();
-      
-      this.touchStartY = e.touches[0].clientY;
-    }
+  onScroll(e:any) {
+    this.windowTop = window?.top?.scrollY as number; /* or: e.target.documentElement.scrollTop */
+  }
 
-    touchMove(e : TouchEvent) {
-      if(this.inMove) return false;
-      e.preventDefault();
-      
-      const currentY = e.touches[0].clientY;
-      
-      if(this.touchStartY < currentY) {
-        this.moveDown();
-      } else {
-        this.moveUp();
-      }
-      
-      this.touchStartY = 0;
-      return false;
-    }
-  
-
-  mounted() {
+  mounted(){
     let body : HTMLElement = document.querySelector('body') as HTMLElement;
-    body.setAttribute("style", "overflow-y: hidden; margin:0;");
-    console.log('ceaed');
+    body.setAttribute("style", "margin:0;");
     this.calculateSectionOffsets();
-    
-    window.addEventListener('DOMMouseScroll', (e) =>{this.handleMouseWheelDOM(e)});  // Mozilla Firefox
-    window.addEventListener('mousewheel', this.handleMouseWheel, { passive: false }); // Other browsers
-    
-    window.addEventListener('touchstart', this.touchStart, { passive: false }); // mobile devices
-    window.addEventListener('touchmove', this.touchMove, { passive: false }); // mobile devices
+
+    window.addEventListener("scroll", this.onScroll);
+    window.addEventListener("resize", this.calculateSectionOffsets);
+
   }
-  destroyed() {
-    window.removeEventListener('mousewheel', this.handleMouseWheel);  // Other browsers
-    window.removeEventListener('DOMMouseScroll', this.handleMouseWheelDOM); // Mozilla Firefox
-    
-    window.removeEventListener('touchstart', this.touchStart); // mobile devices
-    window.removeEventListener('touchmove', this.touchMove); // mobile devices
+  
+  beforeDestroy() {
+    window.removeEventListener("scroll", this.onScroll)
+    window.removeEventListener("resize", this.calculateSectionOffsets)
   }
+  
 
 
 }
@@ -207,31 +165,51 @@ export default class MainPage extends Vue {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 
-$background-side-color:#0F2027;
-$background-content-color:#2c5364;
-$text-content-color: #d8e2eb;
+$color1:#242934;
+$color2:#E4E2E0;
+$color3:#202123;
+$color5:#0a0a0c;
+$color6:#45464b;
+
+
+
+$background-sidebar-color:$color5;
+$background-content-color:$color3;
+
+$text-content-color: $color2;
 $text-side-color: #fff;
-$sidebar-size : 360px;
-$background-side-gradient: linear-gradient(90deg, #0F2027 0%,rgba(18,32,61,1) 50%,#2c5364 100%);
+$sidebar-size : 400px;
 
-
-.salut{
-  font-size: 0.9em; 
-  font-weight: 400;
-  margin: 30px 0px 10px;
-  text-align: left;
+.selected{
+  color:blue;
 }
+
+.sidebar-toggle{
+  display: flex;
+}
+
+.fullname{
+  color:#1a997b;
+}
+
+.img-profile{
+  width:240px;
+  height: 240px;
+  border-radius: 50%;
+  margin-top:5px;
+  margin-bottom: 5px;
+  border: 3px solid #857c7cb9;
+}
+
 
 /* The side navigation menu */
 .sidebar {
-  box-shadow: 5px 5px 5px #686d8f;
   margin: 0;
   padding: 0;
   position: fixed;
   height: 100%;
   width: $sidebar-size;
-  background-color: $background-side-color;
-  //background: $background-side-gradient;
+  background-color: $background-sidebar-color;
 
   overflow: auto;
   overflow-y: hidden; /* Hide vertical scrollbar */
@@ -263,10 +241,11 @@ $background-side-gradient: linear-gradient(90deg, #0F2027 0%,rgba(18,32,61,1) 50
   height:100%;
 }
 
-.presentation h1{
+.presentation > h1{
   color:$text-side-color;
 }
 .presentation h2{
+  font-style: italic;
   color:$text-side-color;
 }
 
@@ -291,9 +270,8 @@ p{
 /* Page content. The value of the margin-left property should match the value of the sidebar's width property */
 div.content {
   margin-left: $sidebar-size;
-  padding: 1px 16px;
-  //background-color: $background-content-color;
-  background: $background-side-gradient;
+  // padding: 1px 16px;
+  background: $background-content-color;
   overflow-y: hidden; /* Hide vertical scrollbar */
   overflow-x: hidden; /* Hide horizontal scrollbar */
 }
@@ -317,6 +295,12 @@ div.content {
   }
 }
 
+.fullotherpage{
+  background-color:#181717;
+}
+
+
+
 .fullpage {
   height: 100vh;
   width: 100%;
@@ -327,10 +311,10 @@ div.content {
 }
 
 h1 {
-  font-size: 6em;
   margin: 0;
   text-align: center;
   padding: 0 1rem;
+  
 }
 
 p {
@@ -380,7 +364,8 @@ h1.black {
 .sections-menu .menu-point {
   width: 10px;
   height: 24px;
-  background-color: rgb(79, 77, 226);
+  font-size:20px;
+  background-color: rgb(43 51 84);
   display: block;
   margin: 1rem 0;
   opacity: .6;
