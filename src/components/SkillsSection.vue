@@ -68,8 +68,14 @@ export default defineComponent({
 }
 
 .img-skill{
-  width:140px;
-  height:140px;
+  //width:140px;
+  //height:140px;
+  width: calc(3.2vw + 3.2vh);
+  height: calc(3.2vh + 3.2vw);
+  @media screen and (max-height: 700px) {
+    width: calc(2.8vw + 2.8vh);
+    height: calc(2.8vh + 2.8vw);
+  }
   border-radius: 25%;
   border: 2px solid #857c7c6b;
 }

@@ -60,4 +60,27 @@ nav {
     }
   }
 }
+
+button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  background-color: #4c56af;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #3a4291;
+}
+
+button:active {
+  background-color: #1f2872;
+}
+
 </style>

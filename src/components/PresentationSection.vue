@@ -14,8 +14,7 @@
           En plus de mon travail professionnel, j'aime consacrer mon temps libre à réaliser différents projets personnels dans divers domaines
           </p> 
         
-        <p>Je suis toujours à la recherche de nouveaux défis en matière de développement, et je suis ouvert à toutes 
-          les opportunités de travail sur des projets passionnants qui me permettent de repousser mes limites et de continuer à apprendre.
+        <p>Je suis toujours à la recherche de nouveaux défis en matière de développement surtout celles qui me permettent de repousser mes limites et de continuer à apprendre.
         </p>
       </div>
     </div>
@@ -58,12 +57,30 @@ li{
 }
 
 .presentation-description{
-  font-size:calc(0.8vw + 0.8vh);
+  font-size:calc(1.0vw + 1.0vh);
+  text-align: justify;
+  @media screen and (max-width: 1100px) {
+        font-size:calc(1.4vw + 1.4vh);
+  }
+  @media screen and (max-height: 1400px) {
+        font-size:calc(1.0vw + 1.0vh);
+  }
+    @media screen and (max-height: 800px) {
+        font-size:calc(0.9vw + 0.9vh);
+  }
 }
 
 .presentation-title{
   font-size:50px;
-  margin-top:180px;
+  margin-top:110px;
+  @media screen and (max-width: 1100px) {
+      font-size:40px;
+       margin-top:55px;
+  }
+  @media screen and (max-height: 800px) {
+      font-size:40px;
+       margin-top:55px;
+  }
 }
 
 h1{
@@ -100,12 +117,15 @@ h1{
     // Half/Tablet screen 
   @media (max-width: 1400px) {
     margin-left:20px;
+    width:80%;
 
   }
   // Mobile screen 
   @media (max-width: 450px) {
     margin-left:0px;
+    width:80%;
   }
+  
 
 }
 .right {

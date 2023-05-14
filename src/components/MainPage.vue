@@ -104,7 +104,7 @@ export default class MainPage extends Vue {
 
     inMove = false;
     offsets : number[]= [];
-    sections = ['Presentation','Compétences','Projets','Contact']
+    sections = ['About','Skills','Projets','Contact']
     windowTop= 0;
 
     getSectionIndex(){
@@ -119,6 +119,7 @@ export default class MainPage extends Vue {
     calculateSectionOffsets() {
       //todo make it vuejs
       let sections = document.getElementsByTagName('section');
+      this.offsets = [];
       let length = sections.length;
       for(let i = 0; i < length; i++) {
         let sectionOffset = sections[i].offsetTop -100;
@@ -139,21 +140,21 @@ export default class MainPage extends Vue {
 
   onScroll(e:any) {
     this.windowTop = window?.top?.scrollY as number; /* or: e.target.documentElement.scrollTop */
-    console.log('windowTop',this.windowTop);
   }
 
   mounted(){
     let body : HTMLElement = document.querySelector('body') as HTMLElement;
     body.setAttribute("style", "margin:0;");
     this.calculateSectionOffsets();
-    console.log("offsets",this.offsets);
 
-    window.addEventListener("scroll", this.onScroll)
+    window.addEventListener("scroll", this.onScroll);
+    window.addEventListener("resize", this.calculateSectionOffsets);
 
   }
   
   beforeDestroy() {
     window.removeEventListener("scroll", this.onScroll)
+    window.removeEventListener("resize", this.calculateSectionOffsets)
   }
   
 

@@ -7,7 +7,7 @@
     </div>
     <div class="flip-card-back">
       <h2 class="project-card-title">{{project.title.en}}</h2> 
-      <p>{{project.description.en ? project.description.en : ""}}</p>
+      <p class="project-card-description">{{project.description.en ? project.description.en : ""}}</p>
       <div class="project-skills">
         <!-- Code -->
         <button title="See the code" class="project-link-btn" @click="this.redirectToCode()" v-if="project.urlCode != null" >
@@ -93,13 +93,25 @@ export default defineComponent({
     align-items: flex-end;
     justify-content: space-evenly;
     flex-wrap: wrap;
+    @media (max-width: 800px) {
+      display: none;
+    }
+}
+
+.project-card-description{
+  @media (max-width: 1200px) {
+    display: none;
+  }
 }
 
 .flip-card {
   background-color: transparent;
+  perspective: 1000px;
+  width: calc(8.2vw + 8.2vh);
+  height: calc(8.2vw + 8.2vh);
+  /*
   width: 300px;
   height: 300px;
-  perspective: 1000px;
 
   // Half Screen
   @media (max-width: 1400px) {
@@ -116,6 +128,7 @@ export default defineComponent({
     width: 100px;
     height: 100px;
   }
+  */
 
 }
 
