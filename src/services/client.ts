@@ -1,8 +1,8 @@
 import sanityClient from '@sanity/client';
 const client = sanityClient({
-    projectId: 'bu9errtr',
+    projectId: 'z54f3n61',
     dataset: 'production',
-    apiVersion: '2021-08-31', // use a UTC date string
+    apiVersion: '2021-10-21', // use a UTC date string
     useCdn: true,
 })
 

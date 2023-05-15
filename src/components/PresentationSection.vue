@@ -3,7 +3,7 @@
     <div class="content-inner">
 
     <div class="left">
-      <h1 class="presentation-title">{{presentation.title.fr}}</h1>
+      <h1 class="presentation-title">{{section.about.fr}}</h1>
       <br/>
       <div class="presentation-description">
         <p>
@@ -30,18 +30,20 @@ import {useStore} from 'vuex';
 import { computed, onMounted } from '@vue/runtime-core';
 
 export default{
-
+  props:{
+    nom:String
+  },
   components:{
     ImpossibleGeometry3D
   },
   setup(){
     const store = useStore();
-    const presentation = computed(()=> store.getters.presentation);
+    const section = computed(()=> store.getters.section);
     onMounted(()=>{
-      store.dispatch("FetchPresentation", 1);
+      store.dispatch("FetchSection", 1);
     })
     return {
-      presentation
+      section
     }
   }
 

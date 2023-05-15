@@ -28,9 +28,11 @@ export interface Skills{
     }[]
 }
 
-export interface Presentation{
-    description:LocaleString,
-    title:LocaleString,
+export interface Section{
+    about:LocaleString,
+    skill:LocaleString,
+    project:LocaleString,
+    contact:LocaleString,
 }
 
 export interface Project{
@@ -51,22 +53,24 @@ const store = createStore({
     state:{
         skills:[],
         projects:[],
-        presentation:{
-            description:emptyLocaleString,
-            title:emptyLocaleString,
-        } as Presentation
+        section:{
+            about:emptyLocaleString,
+            skill:emptyLocaleString,
+            project:emptyLocaleString,
+            contact:emptyLocaleString,
+        } as Section
     },
     getters:{
         skills : state => state.skills,
         projects : state => state.projects,
-        presentation : state => state.presentation
+        section : state => state.section
     },
     mutations:{
         SET_SKILLS (state,skills){
             state.skills = skills;
         },
-        SET_PRESENTATION (state,presentation){
-            state.presentation = presentation;
+        SET_SECTION (state,section){
+            state.section = section;
         },
         SET_PROJECTS (state,projects){
             state.projects = projects;
@@ -88,15 +92,15 @@ const store = createStore({
                 commit('SET_SKILLS',skills);
             });
         },
-        FetchPresentation({commit},limit=null){
+        FetchSection({commit},limit=null){
             const query=`
-            *[_type == "presentation"][0]
+            *[_type == "section"][0]
             {
-            description,title
+            about,skill,project,contact
             }
             `;
-            sanity.fetch(query).then((presentation:Presentation) =>{
-                commit('SET_PRESENTATION',presentation);
+            sanity.fetch(query).then((section:Section) =>{
+                commit('SET_SECTION',section);
             });
         },
         FetchProjects({commit},limit=null){
