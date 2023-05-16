@@ -49,6 +49,21 @@ export interface Project{
     urlCode: string
 }
 
+export interface Content{
+    name:LocaleString,
+    subtitle:LocaleString,
+    contact:LocaleString,
+    description:LocaleString[],
+    profileImage:url
+}
+
+export interface Link{
+    github:LocaleString,
+    linkedin:LocaleString,
+    mail:LocaleString,
+    cv:any,
+}
+
 const store = createStore({
     state:{
         skills:[],
@@ -58,12 +73,20 @@ const store = createStore({
             skill:emptyLocaleString,
             project:emptyLocaleString,
             contact:emptyLocaleString,
-        } as Section
+        } as Section,
+        content:{
+
+        } as Content,
+        link:{
+
+        }as Link
     },
     getters:{
         skills : state => state.skills,
         projects : state => state.projects,
-        section : state => state.section
+        section : state => state.section,
+        content : state => state.content,
+        link : state => state.link
     },
     mutations:{
         SET_SKILLS (state,skills){
@@ -74,6 +97,12 @@ const store = createStore({
         },
         SET_PROJECTS (state,projects){
             state.projects = projects;
+        },
+        SET_CONTENT (state,content){
+            state.content = content;
+        },
+        SET_LINK (state,link){
+            state.link = link;
         }
     },
     actions:{
@@ -101,6 +130,27 @@ const store = createStore({
             `;
             sanity.fetch(query).then((section:Section) =>{
                 commit('SET_SECTION',section);
+            });
+        },
+        FetchContent({commit},limit=null){
+            const query=`
+            *[_type == "content"][0]
+            {
+            name,subtitle,description,contact,
+            "profileImage":profileImage.asset->url
+            }`;
+            sanity.fetch(query).then((content:Content) =>{
+                commit('SET_CONTENT',content);
+            });
+        },
+        FetchLink({commit},limit=null){
+            const query=`
+            *[_type == "link"][0]
+            {
+            github,linkedin,cv,mail
+            }`;
+            sanity.fetch(query).then((link:Link) =>{
+                commit('SET_LINK',link);
             });
         },
         FetchProjects({commit},limit=null){

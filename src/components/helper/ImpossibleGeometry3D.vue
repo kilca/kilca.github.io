@@ -11,30 +11,11 @@ import * as THREE from 'three'
 import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js';
-/*
-import TrackballControls from 'three-trackballcontrols'
-import {
-    BloomEffect,
-    EffectComposer,
-    GlitchPass,
-    EffectPass,
-    RenderPass
-} from 'postprocessing'
-*/
 @Options({
   props: {
   }
 })
 export default class ImpossibleGeometry3D extends Vue {
-
-
-    /*
-    function onWindowResize() {
-        camera.aspect = innerWidth / innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(innerWidth, innerHeight);
-    }*/
-
 
     camera : any;
     renderer : any;
@@ -56,8 +37,6 @@ export default class ImpossibleGeometry3D extends Vue {
     height =0;
     mouse = [ .5, .5 ];
     sceneStencil : any;
-
-
 
     createSide1(){
         let box1 = new THREE.PlaneGeometry(1, 1);
@@ -135,7 +114,6 @@ export default class ImpossibleGeometry3D extends Vue {
             //m4.position.y+=0.1*this.modelSize;
             m4.renderOrder = 2;
             this.scene4.add(m4);
-            console.log('add font to scene');
         } );
         
         const loader = new GLTFLoader();
@@ -159,7 +137,7 @@ export default class ImpossibleGeometry3D extends Vue {
 
     createOther(){
         const loader = new GLTFLoader();
-        loader.load( '/armature.glb', ( gltf )=> {
+        loader.load('/armature.glb', ( gltf )=> {
             let mesh : any = gltf.scene.children[0];
             const size = 0.55* this.modelSize;
             mesh.scale.x = size;
@@ -207,8 +185,6 @@ export default class ImpossibleGeometry3D extends Vue {
         this.renderer.setSize(this.width,this.height )
         this.camera.position.z = 5;
         window.addEventListener( 'mousemove', this.onMouseMove );
-
-
     }
 
     resizeCanvasToDisplaySize() {
@@ -252,7 +228,6 @@ export default class ImpossibleGeometry3D extends Vue {
         this.light2.position.set(this.camera.position.x, this.camera.position.y, this.camera.position.z);
         this.light4.position.set(this.camera.position.x, this.camera.position.y, this.camera.position.z);
 
-        
         let gl = this.renderer.getContext();
         this.renderer.clear(true, true, true);        
 
@@ -260,10 +235,8 @@ export default class ImpossibleGeometry3D extends Vue {
         gl.disable(gl.DEPTH_TEST);
         
         //on evite d'ecrire sur le buffer
-        
         //original avec disable
         gl.stencilOp(gl.KEEP, gl.KEEP, gl.REPLACE);  
-        
         
         gl.stencilFunc(gl.ALWAYS, 1, 0xFF); // all fragments should pass the stencil test
         gl.stencilMask(0x01); // enable writing to the stencil buffer
@@ -287,9 +260,7 @@ export default class ImpossibleGeometry3D extends Vue {
         this.renderer.render(this.scene4,this.camera);
         
         gl.disable(gl.STENCIL_TEST);
-        
         this.renderer.render(this.scene,this.camera);
-        
        //this.renderer.render(this.scene4,this.camera);
         
     }
@@ -308,30 +279,14 @@ export default class ImpossibleGeometry3D extends Vue {
             canvas.style.height = "300px";
             canvas.style.width = "600px";
         }
-        //this.$refs.canvas.appendChild(this.renderer.domElement)
         requestAnimationFrame(this.animate)
-        //this.animate()
     }
 
 }
 
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-
-div{
-    /*
-    position: fixed;
-    width: 90%;
-    height: 90%;
-    left: 0;
-    top: 0;
-    background: rgba(51,51,51,0.7);
-    z-index: 10;
-    */
-}
-
 #canvas { 
     width: 150px;
     height: 150px;

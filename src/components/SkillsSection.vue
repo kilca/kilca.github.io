@@ -1,6 +1,6 @@
 <template>
 <div class="maindiv">
-    <h1>Skills</h1>  
+    <h1>{{nom}}</h1>  
     <div class="content-inner">
       <template v-for="(skill) in skills" v-bind:key="skill">
         <h3>{{skill.title.fr}}</h3>
@@ -21,6 +21,9 @@ import { computed, defineComponent, onMounted } from 'vue';
 import { useStore } from 'vuex';
 
 export default defineComponent({
+  props:{
+    nom:String
+  },
  data(){
     return {
       activeTab:0 as number,

@@ -1,34 +1,14 @@
 <template>
   <div class="section-content">
-    <h1>Contact</h1>
+    <h1>{{nom}}</h1>
+    <div>
 
-    <div class="text-center">
-      <input
-        type="text"
-        name="user_name"
-        v-model="name"
-        class="pinput"
-        placeholder="name"
-      />
+      <p class="contact-text">
+        {{text}}
+      </p>
+      <br>
 
-      <input
-        type="email"
-        name="user_email"
-        v-model="email"
-        placeholder="email"
-        class="pinput"
-        style="transition-delay: 0.4s"
-      />
-
-      <textarea
-        name="message"
-        v-model="text"
-        placeholder="message"
-        class="pinput"
-        rows="4"
-      ></textarea>
-      <br />
-      <button @click.prevent="sendEmail">Send</button>
+      <a class="contact-mail" :href="'mailto:'+mail" >{{mail}}</a>
       <br />
       <div class="contact-img-container">
       <svg
@@ -169,63 +149,15 @@
 </template>
 
 <script lang="ts">
-//import config from "../../config";
-//import emailjs from "emailjs-com";
 import { Options, Vue } from "vue-class-component";
-
 @Options({
-  props: {},
+  props: {
+    nom:String,
+    text:String,
+    mail:String,
+  },
 })
 export default class Contact extends Vue {
-  data() {
-    return {
-      email: "",
-      name: "",
-      text: "",
-      showSnackbar: false,
-      snackbarMessage: "",
-      snackbarColor: "",
-    };
-  }
-  /*
-  sendEmail() {
-    if (!this.email || !this.name || !this.text) {
-      this.showSnackbar = true;
-      this.snackbarMessage = "Please all the fields";
-      this.snackbarColor = "#64808E";
-    } else {
-      var obj = {
-        user_email: this.email,
-        from_name: this.name,
-        message_html: this.text,
-        to_name: "Mahy Mohab",
-      };
-
-      emailjs
-        .send(
-          config.emailjs.serviceID,
-          config.emailjs.templateID,
-          obj,
-          config.emailjs.userID
-        )
-        .then(
-          (result) => {
-            this.showSnackbar = true;
-            this.snackbarMessage = "Thanks! Message recieved.";
-            this.snackbarColor = "#1aa260";
-
-            this.email = "";
-            this.text = "";
-            this.name = "";
-          },
-          (error) => {
-            this.showSnackbar = true;
-            this.snackbarMessage = "Oops! Something went wrong.";
-            this.snackbarColor = "#64808E";
-          }
-        );
-    }
-    */
 }
 </script>
 
@@ -233,6 +165,13 @@ export default class Contact extends Vue {
 <style scoped lang="scss">
 .contact-img {
   scale: 0.5;
+}
+
+.contact-text{
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  font-size:24px;
 }
 
 .contact-img-container{
@@ -279,19 +218,20 @@ export default class Contact extends Vue {
   background-color: #b3b3cc;
 }
 
-.btn {
-  border-color: #759cc9;
-  color: #759cc9;
+.contact-mail {
+  color: #cbd8e7;
   width: 50%;
+  font-size: 40px;
+  font-weight: bold;
+  line-break: anywhere;
 }
 
-.btn:hover {
-  background-color: #759cc9;
-  border-color: #759cc9;
-  color: white;
+.contact-mail:hover {
+  color: rgb(179, 168, 66);
+  cursor: pointer;
 }
 
-.btn:focus {
+.contact-mail:focus {
   background-color: #759cc9;
   border-color: #759cc9;
   color: white;

@@ -1,6 +1,6 @@
 <template>
 <div class="maindiv">
-    <h1>Projects</h1>  
+    <h1>{{nom}}</h1>  
     <div class="content-inner">
         <div class="tabcontent" >
           <div v-for="(project) in projects" v-bind:key="project">
@@ -24,6 +24,9 @@ import CardProject from './helper/CardProject.vue';
 
 */
 export default defineComponent({
+  props:{
+    nom:String
+  },
   components:{
     CardProject
   },

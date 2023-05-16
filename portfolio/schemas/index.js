@@ -6,6 +6,8 @@ import projectcategory from './projectcategory'
 import skill from './skill'
 import skillcategory from './skillcategory'
 import projectinfo from './projectinfo'
+import content from './content'
+import link from './link'
 
 export const schemaTypes = [
     blockContent,
@@ -15,5 +17,7 @@ export const schemaTypes = [
     project,
     projectcategory,
     skill,
-    skillcategory
+    skillcategory,
+    content,
+    link
 ];

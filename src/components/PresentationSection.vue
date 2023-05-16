@@ -3,18 +3,11 @@
     <div class="content-inner">
 
     <div class="left">
-      <h1 class="presentation-title">{{section.about.fr}}</h1>
+      <h1 class="presentation-title">{{nom}}</h1>
       <br/>
       <div class="presentation-description">
-        <p>
-        Ingénieur Développeur Full Stack basé à Paris, passionné par tout ce qui touche à l'informatique et aux nouvelles technologies.
-        </p>
-
-        <p>
-          En plus de mon travail professionnel, j'aime consacrer mon temps libre à réaliser différents projets personnels dans divers domaines
-          </p> 
-        
-        <p>Je suis toujours à la recherche de nouveaux défis en matière de développement surtout celles qui me permettent de repousser mes limites et de continuer à apprendre.
+        <p v-for="(desc) in description" v-bind:key="desc">
+          {{desc}}
         </p>
       </div>
     </div>
@@ -31,7 +24,8 @@ import { computed, onMounted } from '@vue/runtime-core';
 
 export default{
   props:{
-    nom:String
+    nom:String,
+    description:Array
   },
   components:{
     ImpossibleGeometry3D

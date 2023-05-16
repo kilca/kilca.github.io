@@ -7,7 +7,6 @@
     </div>
     <div class="flip-card-back">
       <h2 class="project-card-title">{{project.title.en}}</h2> 
-      <p class="project-card-description">{{project.description.en ? project.description.en : ""}}</p>
       <div class="project-skills">
         <!-- Code -->
         <button title="See the code" class="project-link-btn" @click="this.redirectToCode()" v-if="project.urlCode != null" >
