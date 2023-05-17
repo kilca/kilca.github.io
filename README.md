@@ -24,16 +24,6 @@ git push
 cd ..
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-
 # Sanity
 
 ```
@@ -52,3 +42,14 @@ sanity init
 ```
 npm run dev
 ```
+
+# Todo
+- transition
+- clean
+- FR/END lang
+- white/dark switch
+
+## Todo (future)
+
+- Add Experiences timeline with w3school timeline (when enough experience)
+- Add blog section or link (when enough blogs)

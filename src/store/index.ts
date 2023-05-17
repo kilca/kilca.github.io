@@ -1,6 +1,9 @@
 import {createStore} from 'vuex';
 import sanity from "../services/client"
 
+const PROJECT_ID = 'z54f3n61';
+const DATASET = 'production';
+
 export interface LocaleString{
     en: string,
     fr: string,
@@ -63,6 +66,13 @@ export interface Link{
     mail:LocaleString,
     cv:any,
 }
+
+const getUrlFromId = (ref:string) => {
+    // Example ref: file-207fd9951e759130053d37cf0a558ffe84ddd1c9-mp3
+    // We don't need the first part, unless we're using the same function for files and images
+    const [_file, id, extension] = ref.toString().split('-');
+    return `https://cdn.sanity.io/files/${PROJECT_ID}/${DATASET}/${id}.${extension}`
+  }
 
 const store = createStore({
     state:{
@@ -150,6 +160,8 @@ const store = createStore({
             github,linkedin,cv,mail
             }`;
             sanity.fetch(query).then((link:Link) =>{
+                const cv = link.cv.asset._ref;
+                link.cv = getUrlFromId(cv);
                 commit('SET_LINK',link);
             });
         },
@@ -175,7 +187,6 @@ const store = createStore({
               
             }`;
             sanity.fetch(query).then((projects:Project[]) =>{
-                console.log('**projects fetched',projects);
                 commit('SET_PROJECTS',projects);
             });
         }
