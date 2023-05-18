@@ -68,7 +68,7 @@ export default class ImpossibleGeometry3D extends Vue {
 
         this.scene1.add(m1);
         const loader = new GLTFLoader();
-        loader.load( '/cubezone.glb', ( gltf )=> {
+        loader.load( './cubezone.glb', ( gltf )=> {
             let mesh : any = gltf.scene.children[0];
             const size = 0.54 * this.modelSize;
             mesh.scale.x = size;
@@ -98,9 +98,9 @@ export default class ImpossibleGeometry3D extends Vue {
         m3.scale.set(this.modelSize,this.modelSize,this.modelSize);
         this.scene3.add(m3);
         const floader = new FontLoader();
-        floader.load( "optimer.json", ( response ) =>{
+        floader.load( "./optimer.json", ( response ) =>{
             let font = response;
-            console.log(font);
+            //console.log(font);
             let box4 = new TextGeometry( "front", {
                 height:0.3,
                 font: font,
@@ -117,7 +117,7 @@ export default class ImpossibleGeometry3D extends Vue {
         } );
         
         const loader = new GLTFLoader();
-        loader.load( '/cubezone.glb', ( gltf )=> {
+        loader.load( './cubezone.glb', ( gltf )=> {
             let mesh : any = gltf.scene.children[0];
             const size = 0.54 * this.modelSize;
             mesh.scale.x = size;
@@ -137,7 +137,7 @@ export default class ImpossibleGeometry3D extends Vue {
 
     createOther(){
         const loader = new GLTFLoader();
-        loader.load('/armature.glb', ( gltf )=> {
+        loader.load('./armature.glb', ( gltf )=> {
             let mesh : any = gltf.scene.children[0];
             const size = 0.55* this.modelSize;
             mesh.scale.x = size;
@@ -194,7 +194,6 @@ export default class ImpossibleGeometry3D extends Vue {
         const height = 1080;
         // adjust displayBuffer size to match
         if (canvas.width !== width || canvas.height !== height) {
-            console.log('adjust');
             // you must pass false here or three.js sadly fights the browser
             this.renderer.setSize(width, height, false);
             this.camera.aspect = width / height;

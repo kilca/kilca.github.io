@@ -171,7 +171,6 @@ export default defineComponent({
     const calculateSectionOffsets = () => {
       const sections = document.getElementsByTagName('section');
       this.offsets = [];
-      console.log("**sections",sections);
       const length = sections.length;
       for (let i = 0; i < length; i++) {
         const sectionOffset = sections[i].offsetTop - 100;
