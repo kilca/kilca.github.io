@@ -13,17 +13,21 @@ cd dist
 # echo 'www.example.com' > CNAME
 
 git init
+
+# Ajouter un "." devant les attributs href
+sed -i 's/href="\//href=".\//g' "$file"
+
+# Ajouter un "." devant les attributs src
+sed -i 's/src="\//src=".\//g' "$file"
+
+git checkout -b main
 git add -A
 git commit --allow-empty -m 'deploy'
 
 # if you are deploying to https://<USERNAME>.github.io
 # git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git main
 
-git checkout -b main
-
 # if you are deploying to https://<USERNAME>.github.io/<REPO>
 git push -f git@github.com:kilca/Portfolio.git main:gh-pages
-
-# add ./ to srcs in index and duplicate index.html to 404.html
 
 cd -
