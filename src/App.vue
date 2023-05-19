@@ -47,7 +47,7 @@ h1{
 }
 
 p{
-  color:white;
+  color:rgb(246, 241, 241);
   font-family: $Fredoka, serif;
 }
 

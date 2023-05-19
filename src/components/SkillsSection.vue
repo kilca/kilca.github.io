@@ -112,15 +112,18 @@ h3{
   display:none;
 }
 
+/*
 .img-skill-container:hover > .img-skill{
   filter: brightness(0.7);
   border: 4px solid #857c7c6b;
 }
 
+
 .img-skill-container:hover > .img-skill-title{
   display: block;
   color: red;
 }
+*/
 
 .img-skill-title{
   position: absolute;

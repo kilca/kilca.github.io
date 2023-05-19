@@ -30,6 +30,10 @@ cd ..
 cd sanity
 ```
 
+## Edit content
+
+https://kikportfolio.sanity.studio/desk
+
 ## Sanity init
 
 tip : use any youtuber coupon to *2 your free plan perfs
