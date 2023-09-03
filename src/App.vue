@@ -1,5 +1,5 @@
 <template>
-  <MainPage/>
+<router-view></router-view>
 </template>
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
@@ -49,6 +49,10 @@ h1{
 p{
   color:rgb(246, 241, 241);
   font-family: $Fredoka, serif;
+  letter-spacing: 1px;
+  line-height: 1.4;
+  padding: 20px;
+  text-align: justify;
 }
 
 nav {

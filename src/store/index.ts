@@ -4,6 +4,8 @@ import sanity from "../services/client"
 const PROJECT_ID = 'z54f3n61';
 const DATASET = 'production';
 
+export type SupportedLang = 'en' | 'fr';
+
 export interface LocaleString{
     en: string,
     fr: string,
@@ -89,14 +91,21 @@ const store = createStore({
         } as Content,
         link:{
 
-        }as Link
+        }as Link,
+        selectedLanguage: 'en' as SupportedLang, // Default language
     },
     getters:{
         skills : state => state.skills,
         projects : state => state.projects,
         section : state => state.section,
         content : state => state.content,
-        link : state => state.link
+        link : state => state.link,
+        tr: (state) => (text: LocaleString | string) => {
+            if (typeof text === 'string') {
+                return text;
+            }
+            return text[state.selectedLanguage];
+        },
     },
     mutations:{
         SET_SKILLS (state,skills){
@@ -113,7 +122,10 @@ const store = createStore({
         },
         SET_LINK (state,link){
             state.link = link;
-        }
+        },
+        SET_LANGUAGE(state, lang) {
+            state.selectedLanguage = lang;
+        },
     },
     actions:{
         FetchSkills ({commit}, limit=null){
@@ -189,7 +201,10 @@ const store = createStore({
             sanity.fetch(query).then((projects:Project[]) =>{
                 commit('SET_PROJECTS',projects);
             });
-        }
+        },
+        setLanguage({ commit }, lang) {
+            commit('SET_LANGUAGE', lang);
+        },
     }
 });
 export default store;

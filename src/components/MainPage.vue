@@ -10,10 +10,10 @@
           </div>
           <img class="img-profile" :src="content?.profileImage" />
           <h1 class="fullname">
-            {{ content?.name?.fr }}
+            {{ tr(content?.name).value }}
           </h1>
           <h2>
-            {{ content?.subtitle?.fr }}
+            {{ tr(content?.subtitle).value }}
           </h2>
         </div>
         <div class="sections-menu">
@@ -32,7 +32,7 @@
         <div class="socialdiv">
           <ul class="social">
             <li>
-              <a alt="github" :href="link?.github">
+              <a class="social-ref" alt="github" :href="link?.github">
                 <svg
                   aria-hidden="true"
                   focusable="false"
@@ -52,7 +52,7 @@
               </a>
             </li>
             <li>
-              <a alt="linkedin" :href="link?.linkedin">
+              <a class="social-ref" alt="linkedin" :href="link?.linkedin">
                 <svg
                   aria-hidden="true"
                   focusable="false"
@@ -72,7 +72,7 @@
               </a>
             </li>
             <li>
-              <a alt="cv" class="link" @click="openUrl()">
+              <a alt="cv" class="link social-ref" @click="openUrl()">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -97,6 +97,12 @@
             </li>
           </ul>
         </div>
+
+        <div class="flagdiv">
+          <span v-on:click="redirectToFrench" class="fi flag fi-fr"></span>
+          <span v-on:click="redirectToDefault" class="fi flag fi-gb"></span>
+        </div>
+
       </div>
     </div>
 
@@ -105,24 +111,24 @@
       <section class="fullpage">
         <!-- 3D Presentation -->
         <PresentationSection
-          :nom="section?.about?.fr"
+          :nom="tr(section?.about).value"
           :description="getDescriptions()"
         />
       </section>
       <section class="fullpage fullotherpage">
         <!-- Radial menu -->
-        <SkillsSection :nom="section?.skill?.fr" />
+        <SkillsSection :nom="tr(section?.skill).value" />
       </section>
       <section class="fullpage">
         <!-- Radial menu -->
-        <ProjectsSection :nom="section?.project?.fr" />
+        <ProjectsSection :nom="tr(section?.project).value" />
       </section>
       <section class="fullpage fullotherpage">
         <!-- ??? -->
         <Contact
-          :nom="section?.contact?.fr"
-          :mail="link?.mail?.fr"
-          :text="content?.contact?.fr"
+          :nom="tr(section?.contact).value"
+          :mail="tr(link?.mail).value"
+          :text="tr(content?.contact).value"
         />
       </section>
     </div>
@@ -142,9 +148,11 @@ import {
   onMounted,
   computed,
   ComputedRef,
+  inject,
 } from "vue";
 import { useStore } from "vuex";
 import { Content, Link, LocaleString, Section } from "@/store";
+import "/node_modules/flag-icons/css/flag-icons.min.css";
 
 export default defineComponent({
   props: {},
@@ -164,18 +172,24 @@ export default defineComponent({
     };
   },
   methods: {
+    redirectToFrench() {
+      this.$router.push({ path: '/fr' });
+    },
+    redirectToDefault() {
+      this.$router.push({ path: '/' });
+    },
     getDescriptions() {
       return this.content?.description?.map(
-        (description: LocaleString) => description.fr
+        (description: LocaleString) => (this.tr as any)(description).value
       );
     },
     getSections() {
       if (this.section) {
         return [
-          this.section.about.fr,
-          this.section.skill.fr,
-          this.section.project.fr,
-          this.section.contact.fr,
+          (this.tr as any)(this.section.about).value,
+          (this.tr as any)(this.section.skill).value,
+          (this.tr as any)(this.section.project).value,
+          (this.tr as any)(this.section.contact).value,
         ];
       }
       return ["About", "Skills", "Projets", "Contact"];
@@ -212,10 +226,13 @@ export default defineComponent({
       store.dispatch("FetchContent", 1);
       store.dispatch("FetchLink", 1);
     });
+
+    const tr = inject('tr');
     return {
       section,
       content,
       link,
+      tr
     };
   },
   mounted() {
@@ -286,6 +303,7 @@ $sidebar-size: 400px;
   border-radius: 50%;
   margin-bottom: 5px;
   border: 3px solid #f6f2f2b9;
+  object-fit: cover;
 }
 
 /* The side navigation menu */
@@ -314,10 +332,6 @@ $sidebar-size: 400px;
   color: white;
 }
 
-.socialdiv {
-  margin-top: auto;
-  margin-bottom: 10px;
-}
 
 .presentation {
   display: flex;
@@ -479,6 +493,32 @@ h1.black {
   transform: scale(1.5);
 }
 // --------- Liste
+
+.flagdiv {
+    display: flex;
+    justify-content: center; /* Center-align the image containers horizontally */
+    gap: 20px; /* Sets the gap between image containers */
+    margin-bottom: 20px;
+    
+}
+
+.flag{
+  cursor: pointer;
+  scale: 1.5;
+  padding: 0;
+  list-style: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.socialdiv {
+  margin-top: 1em;
+  margin-bottom: 10px;
+}
+
 .social {
   color: #909096;
   padding: 0;
@@ -507,4 +547,9 @@ h1.black {
   transition: fill 0.4s;
   fill: #1d51ca;
 }
+
+.social-ref{
+  cursor: pointer;
+}
+
 </style>

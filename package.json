@@ -1,7 +1,7 @@
 {
   "name": "portfolio",
   "version": "0.1.0",
-  "homepage" : "https://kilca.github.io/Portfolio/",
+  "homepage": "https://kilca.github.io/Portfolio/",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "core-js": "^3.8.3",
+    "flag-icons": "^6.11.0",
     "three": "^0.143.0",
     "vue": "^3.2.13",
     "vue-class-component": "^8.0.0-0",

@@ -3,7 +3,7 @@
     <h1>{{nom}}</h1>  
     <div class="content-inner">
       <template v-for="(skill) in skills" v-bind:key="skill">
-        <h3>{{skill.title.fr}}</h3>
+        <h3>{{tr(skill.title.fr).value}}</h3>
         <div class="tabcontent">
           <div class="img-skill-container" v-for="(techno) in skill.skills" v-bind:key="techno.title.en">
               <!-- scatter ? ou circle menu ?-->
@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted } from 'vue';
+import { computed, defineComponent, inject, onMounted } from 'vue';
 import { useStore } from 'vuex';
 
 export default defineComponent({
@@ -41,8 +41,10 @@ export default defineComponent({
     onMounted(()=>{
       store.dispatch("FetchSkills", 1);
     })
+    const tr = inject('tr');
     return {
-      skills
+      skills,
+      tr
     }
   }
   
