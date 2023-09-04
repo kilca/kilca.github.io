@@ -15,10 +15,10 @@ cd dist
 git init
 
 # Ajouter un "." devant les attributs href
-sed -i 's/href="\//href=".\//g' "$file"
+sed -i 's/href="\//href=".\//g' index.html
 
 # Ajouter un "." devant les attributs src
-sed -i 's/src="\//src=".\//g' "$file"
+sed -i 's/src="\//src=".\//g' index.html
 
 git checkout -b main
 git add -A
