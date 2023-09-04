@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory, createWebHistory, RouteRecordRaw } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import AboutView from "../views/AboutView.vue"
+import PrivacyPolicy from "../views/PrivacyPolicy.vue"
 import { setLanguage } from '@/utils/utils'
 import { SupportedLang } from '@/store'
 
@@ -11,9 +11,9 @@ const routes: Array<RouteRecordRaw> = [
     component: HomeView,
   },
   {
-    path: '/about',
-    name: 'about',
-    component: AboutView,
+    path: '/privacy',
+    name: 'privacy',
+    component: PrivacyPolicy,
   },
   {
     path: '/:lang',
