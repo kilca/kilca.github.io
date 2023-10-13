@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory, createWebHistory, RouteRecordRaw } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import PrivacyPolicy from "../views/PrivacyPolicy.vue"
+import Faq from "../views/Faq.vue"
 import { setLanguage } from '@/utils/utils'
 import { SupportedLang } from '@/store'
 
@@ -16,6 +17,11 @@ const routes: Array<RouteRecordRaw> = [
     component: PrivacyPolicy,
   },
   {
+    path: '/faq',
+    name: 'faq',
+    component: Faq,
+  },
+  {
     path: '/:lang',
     name: 'homeWithLang',
     component: HomeView,
@@ -23,8 +29,8 @@ const routes: Array<RouteRecordRaw> = [
 ];
 
 const router = createRouter({
-  //history: createWebHashHistory(),
-  history: createWebHistory(),
+  history: createWebHashHistory(),
+  //history: createWebHistory(process.env.BASE_URL),
   routes
 })
 
