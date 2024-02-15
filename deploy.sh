@@ -36,5 +36,5 @@ git commit --allow-empty -m 'deploy'
 
 # if you are deploying to https://<USERNAME>.github.io/<REPO>
 echo '[INFO] Pushing to github pages...'
-git push -f git@github.com/kilca/kilca.github.io.git main:gh-pages
+git push -f git@github.com:kilca/kilca.github.io.git main:gh-pages
 cd -
