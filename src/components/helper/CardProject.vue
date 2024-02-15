@@ -43,7 +43,6 @@ export default defineComponent({
   components:{
     ModalProject
   },
-  //todo : link to  Modal overlay + tags + links to ref
   data: function(){
     return{
       showModal: false,
@@ -136,6 +135,10 @@ export default defineComponent({
   perspective: 1000px;
   width: calc(8.2vw + 8.2vh);
   height: calc(8.2vw + 8.2vh);
+  @media (max-width: 600px){
+    min-height: 80px;
+    min-width: 80px;
+  }
   @media (max-width: 1800px) {
     width: calc(6.5vw + 6.5vh);
     height: calc(6.5vw + 6.5vh);
@@ -144,26 +147,6 @@ export default defineComponent({
     width: calc(5.5vw + 5.5vh);
     height: calc(5.5vw + 5.5vh);
   }
-  /*
-  width: 300px;
-  height: 300px;
-
-  // Half Screen
-  @media (max-width: 1400px) {
-    width: 200px;
-    height: 200px;
-  }
-  // Tablet screen 
-  @media (max-width: 768px) {
-    width: 150px;
-    height: 150px;
-  }
-  // Mobile screen 
-  @media (max-width: 450px) {
-    width: 100px;
-    height: 100px;
-  }
-  */
 
 }
 

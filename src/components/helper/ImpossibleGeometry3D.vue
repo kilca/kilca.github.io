@@ -275,8 +275,8 @@ export default class ImpossibleGeometry3D extends Vue {
     mounted() {
         const canvas = document.getElementById('canvas')?.appendChild(this.renderer.domElement);
         if (canvas != null){
-            canvas.style.height = "300px";
-            canvas.style.width = "600px";
+            canvas.style.height = "100%";
+            canvas.style.width = "100%";
         }
         requestAnimationFrame(this.animate)
     }
@@ -287,8 +287,8 @@ export default class ImpossibleGeometry3D extends Vue {
 
 <style scoped lang="scss">
 #canvas { 
-    width: 150px;
-    height: 150px;
+    width: 100%;
+    height: 100%;
     float: left;
     margin: 1em;
 }

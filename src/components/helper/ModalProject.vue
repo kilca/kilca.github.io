@@ -11,7 +11,7 @@
             <div class="modal-header">
             <slot name="header">
               <h2>
-                {{project.info.title.en}}
+                {{tr(project.info.title).value}}
               </h2>
             </slot>
             </div>
@@ -19,7 +19,7 @@
             <div class="modal-body">
             <slot name="body">
                 <p class="projet-info-description">
-                {{project.info.description.en}}
+                {{tr(project.info.description).value}}
                 </p>
                 <img v-for="(image) in project.info.images" v-bind:key="image" :src="image" style="width:600px;height:300px;" />
             </slot>
@@ -46,10 +46,17 @@
 </template>
 
 <script lang="ts">
-
-export default {
-  props:['project']
-}
+import { defineComponent } from '@vue/runtime-core';
+import { inject } from 'vue';
+export default defineComponent({
+  props:['project'],
+  setup(){
+    const tr = inject('tr');
+    return {
+      tr
+    }
+  }
+});
 
 </script>
 

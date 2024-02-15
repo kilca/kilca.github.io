@@ -62,6 +62,7 @@ export default defineComponent({
     const projectCategories: ComputedRef<ProjectCategory[]> = computed(()=> store.getters.projectCategories);
     const persProjects: ComputedRef<Project[]> = computed(()=> store.getters.projects.filter((project:Project)=> project.category?.title.en === projectCategories.value[0].title.en));
     const proProjects: ComputedRef<Project[]> = computed(()=> store.getters.projects.filter((project:Project)=> project.category?.title.en === projectCategories.value[1].title.en));
+    console.log("persProjects",persProjects.value);
     const tr = inject('tr');
     onMounted(()=>{
       store.dispatch("FetchProjectCategories", 1);

@@ -72,7 +72,7 @@
               </a>
             </li>
             <li>
-              <a alt="cv" class="link social-ref" @click="openUrl()">
+              <a alt="cv" class="link social-ref" @click="openUrl()" style="transform: translate(0px, 2px);">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -348,7 +348,7 @@ $sidebar-size: 400px;
 .presentation {
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   height: 100%;
 }
 
@@ -463,6 +463,9 @@ h1.black {
 }
 
 .sections-menu {
+  @media screen and (max-width: 700px){
+    display: none;
+  }
   /*
   position: fixed;
   left: 1rem;

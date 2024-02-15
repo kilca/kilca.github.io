@@ -170,7 +170,7 @@ export default class Contact extends Vue {
   width: 50%;
   margin-left: auto;
   margin-right: auto;
-  font-size:24px;
+  font-size: 1.4vw;
 }
 
 .contact-img-container{
