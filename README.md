@@ -1,6 +1,8 @@
 # portfolio
 
-An awesome portfolio using Vuejs, Vuex and Sanity io.
+An hand-made portfolio using Vuejs, Vuex and Sanity io.
+
+Warning : The code is not perfect, i do not consider myself an expert in vue
 
 It uses CMS for loading content
 
@@ -27,22 +29,22 @@ cd ..
 # Sanity
 
 ```
-cd sanity
+see /portfolio
 ```
 
-## Edit content
+## Edit content (use your own)
 
 https://kikportfolio.sanity.studio/desk
 
 ## Sanity init
 
-tip : use any youtuber coupon to *2 your free plan perfs
-
+tip : use any youtuber coupon to double your free plan
 ```
 sanity init
 ```
 
 ## Sanity start
+
 ```
 npm run dev
 ```
@@ -50,10 +52,8 @@ npm run dev
 # Todo
 - transition
 - clean
-- FR/END lang
-- white/dark switch
+- better responsiveness
 
 ## Todo (future)
 
-- Add Experiences timeline with w3school timeline (when enough experience)
-- Add blog section or link (when enough blogs)
+- Add blog section or link (when enough articles)

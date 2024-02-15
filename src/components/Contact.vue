@@ -2,7 +2,6 @@
   <div class="section-content">
     <h1>{{nom}}</h1>
     <div>
-
       <p class="contact-text">
         {{text}}
       </p>
@@ -214,7 +213,6 @@ export default class Contact extends Vue {
   margin-top: 5px;
   padding: 10px;
   width: 50%;
-  //transition: all 1s;
   background-color: #b3b3cc;
 }
 

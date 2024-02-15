@@ -1,5 +1,9 @@
 #!/usr/bin/env sh
 
+## Permet de deployer le projet sur github pages
+## Cela utilise le workflow par défaut de github pages
+## Pour modifier : https://stackoverflow.com/a/76960283
+
 # abort on errors
 set -e
 
@@ -32,6 +36,5 @@ git commit --allow-empty -m 'deploy'
 
 # if you are deploying to https://<USERNAME>.github.io/<REPO>
 echo '[INFO] Pushing to github pages...'
-git push -f git@github.com:kilca/Portfolio.git main:gh-pages
-
+git push -f git@github.com/kilca/kilca.github.io.git main:gh-pages
 cd -

@@ -263,9 +263,7 @@ export default defineComponent({
       }
     };
     const onScroll = (e: any) => {
-      this.windowTop = window?.top
-        ?.scrollY as number; /* or: e.target.documentElement.scrollTop */
-      //this.windowTop = window?.top?.scrollY || e.target.documentElement.scrollTop;
+      this.windowTop = window?.top?.scrollY as number;
     };
     calculateSectionOffsets();
     window.addEventListener("scroll", onScroll);

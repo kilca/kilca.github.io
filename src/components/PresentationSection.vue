@@ -1,7 +1,6 @@
 <template>
   <br/>
     <div class="content-inner">
-
     <div class="left">
       <h1 class="presentation-title">{{nom}}</h1>
       <br/>
