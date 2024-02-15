@@ -3,9 +3,14 @@
     <h1>{{nom}}</h1>  
     <div class="content-inner">
         <div class="tabcontent" >
-          <div v-for="(project) in projects" v-bind:key="project">
-            <CardProject :project="project"></CardProject>
-          </div>
+           <div class="column" v-for="(category,index) in projectCategories" v-bind:key="category">
+              <h2 class="project-sub-title">{{tr(category.title).value}}</h2>
+                <div class="card-container">
+                  <div v-for="(project) in getCurrentProjects(index)" v-bind:key="project">
+                    <CardProject :project="project"></CardProject>
+                  </div>
+                </div>
+            </div>
         </div>
       
     </div>
@@ -17,7 +22,8 @@
 //https://codepen.io/0guzhan/pen/YvNmwJ
 
 
-import { computed, defineComponent, onMounted } from 'vue';
+import { Project, ProjectCategory } from '@/store';
+import { computed, ComputedRef, defineComponent, inject, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import CardProject from './helper/CardProject.vue';
 /*
@@ -38,6 +44,14 @@ export default defineComponent({
   methods: {
     selectTab(index: number) {
         this.activeTab=index;
+    },
+    getCurrentProjects(index:number): Project[]{
+      if (index === 0){
+        return this.persProjects;
+      }
+      else{
+        return this.proProjects;
+      }
     }
   },
   showProject(index:number) {
@@ -45,12 +59,19 @@ export default defineComponent({
   },
   setup(){
     const store = useStore();
-    const projects = computed(()=> store.getters.projects);
+    const projectCategories: ComputedRef<ProjectCategory[]> = computed(()=> store.getters.projectCategories);
+    const persProjects: ComputedRef<Project[]> = computed(()=> store.getters.projects.filter((project:Project)=> project.category?.title.en === projectCategories.value[0].title.en));
+    const proProjects: ComputedRef<Project[]> = computed(()=> store.getters.projects.filter((project:Project)=> project.category?.title.en === projectCategories.value[1].title.en));
+    const tr = inject('tr');
     onMounted(()=>{
+      store.dispatch("FetchProjectCategories", 1);
       store.dispatch("FetchProjects", 1);
     })
     return {
-      projects
+      projectCategories,
+      persProjects,
+      proProjects,
+      tr
     }
   }
   
@@ -105,20 +126,36 @@ export default defineComponent({
 
 /* Style the tab content */
 .tabcontent {
-  width: 80%;
-  display: flex;
-  justify-content: center;
-  margin-top:40px;
-  flex-wrap:wrap;
-  align-content: flex-start;
-  gap: 8px;
+  width: 95%;
+    display: flex;
+    gap: 8px;
 }
 
+.column{
+  width: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    flex-direction: column;
+}
+
+.project-sub-title{
+  font-size: 1.5em;
+  color: darkcyan;
+  margin: 0;
+  padding: 0;
+}
 
 .content-inner{
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.card-container{
+  display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 </style>

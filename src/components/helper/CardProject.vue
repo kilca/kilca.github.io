@@ -6,8 +6,9 @@
       <img :src="project.image" alt="Project Overview" class="flip-card-img">
     </div>
     <div class="flip-card-back">
-      <h2 class="project-card-title">{{project.title.en}}</h2> 
-      <div class="project-skills">
+      <h2 class="project-card-title">{{tr(project.title).value}}</h2> 
+      <h2 class="project-card-description">{{tr(project.description).value}}</h2> 
+      <div class="project-skills links">
         <!-- Code -->
         <button title="See the code" class="project-link-btn" @click="this.redirectToCode()" v-if="project.urlCode != null" >
           <svg  class="project-link-svg feather feather-code" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
@@ -23,7 +24,10 @@
         </button>
       </div>
       <div class="project-skills">
-        <img v-for="(skill) in project.skills" v-bind:key="skill" :src="skill.image" alt="project-skill" style="width:30px;height:30px;">
+        <div v-for="(skill) in project.skills" v-bind:key="skill" class="tooltip">
+          <img  :src="skill.image" alt="project-skill" style="width:30px;height:30px;"/>
+          <span class="tooltiptext">{{skill.title}}</span>
+        </div>
       </div>
     </div>
   </div>
@@ -32,8 +36,7 @@
 
 <script lang="ts">
 import { defineComponent } from '@vue/runtime-core';
-import { Options, Vue } from 'vue-class-component';
-import Project from "../../store/index"
+import { inject } from 'vue';
 import ModalProject from "./ModalProject.vue"
 export default defineComponent({
   props:['project'],
@@ -53,6 +56,12 @@ export default defineComponent({
     redirectToCode: function(){
       window.open(this.project.urlCode, '_blank');
     }
+  },
+  setup(){
+    const tr = inject('tr');
+    return {
+      tr
+    }
   }
 })
 
@@ -63,7 +72,7 @@ export default defineComponent({
 
 
 .project-link-svg{
-  color: black;
+  color: #26272a;
 }
 
 .project-link-btn:hover .project-link-svg {
@@ -75,10 +84,17 @@ export default defineComponent({
 }
 
 .project-link-btn{
-  cursor:pointer;
-  border:none;
-  border-radius: 28px;
-  background-color: white;
+  cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    background-color: #f3f1f1;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+      transform: scale(0.7);
+    @media (max-width: 1800px){
+      transform: scale(0.5);
+   }
+
 }
 
 .project-card-title{
@@ -95,19 +111,39 @@ export default defineComponent({
     @media (max-width: 800px) {
       display: none;
     }
+    &.links{
+      @media (max-width: 1600px){
+                display: none;
+      }
+    }
+    @media (max-width: 1600px){
+      height: unset;
+    }
 }
 
 .project-card-description{
-  @media (max-width: 1200px) {
+  font-size: 16px;
+  @media (max-width: 1800px) {
     display: none;
   }
 }
 
 .flip-card {
+  min-height: 130px;
+  min-width: 130px;
+  margin:4px;
   background-color: transparent;
   perspective: 1000px;
   width: calc(8.2vw + 8.2vh);
   height: calc(8.2vw + 8.2vh);
+  @media (max-width: 1800px) {
+    width: calc(6.5vw + 6.5vh);
+    height: calc(6.5vw + 6.5vh);
+  }
+  @media (max-width: 1400px) {
+    width: calc(5.5vw + 5.5vh);
+    height: calc(5.5vw + 5.5vh);
+  }
   /*
   width: 300px;
   height: 300px;
@@ -162,7 +198,7 @@ export default defineComponent({
 
 .flip-card-front {
   border-radius: 10px;
-  background-color: #bbb;
+  background-color: #151616;
   color: black;
 }
 
@@ -171,9 +207,34 @@ export default defineComponent({
   justify-content: space-around;
   flex-direction: column;
   border-radius: 10px;
-  background-color: #2980b9;
+  background-color: #0f2942;;
   color: white;
   transform: rotateY(180deg);
+}
+
+// Tooltip
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 99999;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
 }
 
 </style>

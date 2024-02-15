@@ -3,7 +3,7 @@
     <h1>{{nom}}</h1>  
     <div class="content-inner">
       <template v-for="(skill) in skills" v-bind:key="skill">
-        <h3>{{tr(skill.title.fr).value}}</h3>
+        <h3>{{tr(skill.title).value}}</h3>
         <div class="tabcontent">
           <div class="img-skill-container" v-for="(techno) in skill.skills" v-bind:key="techno.title.en">
               <!-- scatter ? ou circle menu ?-->

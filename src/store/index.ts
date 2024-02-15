@@ -40,6 +40,11 @@ export interface Section{
     contact:LocaleString,
 }
 
+export interface ProjectCategory{
+    title:LocaleString,
+    description:LocaleString
+}
+
 export interface Project{
     description:LocaleString,
     title:LocaleString,
@@ -48,7 +53,7 @@ export interface Project{
         title:string
         image:url// https://github.com/marwin1991/profile-technology-icons#-tools
     }[],
-    category?:string,
+    category?:ProjectCategory,
     info: ProjectInfo,
     urlLive: string,
     urlCode: string
@@ -86,6 +91,7 @@ const store = createStore({
             project:emptyLocaleString,
             contact:emptyLocaleString,
         } as Section,
+        projectCategories:[],
         content:{
 
         } as Content,
@@ -100,9 +106,13 @@ const store = createStore({
         section : state => state.section,
         content : state => state.content,
         link : state => state.link,
+        projectCategories : state => state.projectCategories,
         tr: (state) => (text: LocaleString | string) => {
             if (typeof text === 'string') {
                 return text;
+            }
+            if (!text) {
+                return "";
             }
             return text[state.selectedLanguage];
         },
@@ -122,6 +132,9 @@ const store = createStore({
         },
         SET_LINK (state,link){
             state.link = link;
+        },
+        SET_PROJECT_CATEGORIES (state,projectCategories){
+            state.projectCategories = projectCategories;
         },
         SET_LANGUAGE(state, lang) {
             state.selectedLanguage = lang;
@@ -184,7 +197,11 @@ const store = createStore({
               description,
               title,
               "image":mainImage.asset->url,
-              category,
+              "category": *[_id == ^.category.category._ref][0]{
+                description,
+                title
+               },
+              "test":info,
               skills[]->{
                 title,
                 "image":mainImage.asset->url
@@ -200,6 +217,17 @@ const store = createStore({
             }`;
             sanity.fetch(query).then((projects:Project[]) =>{
                 commit('SET_PROJECTS',projects);
+            });
+        },
+        FetchProjectCategories({commit},limit=null){
+            const query = `
+            *[_type == "projectCategory"]
+            {
+              description,
+              title,
+            }`;
+            sanity.fetch(query).then((projects:ProjectCategory[]) =>{
+                commit('SET_PROJECT_CATEGORIES',projects);
             });
         },
         setLanguage({ commit }, lang) {
