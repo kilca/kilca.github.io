@@ -86,7 +86,8 @@ export default defineComponent({
 }
 
 h3{
-  color:white;
+  color: #ffcc35;
+  font-size: 30px;
 }
 
 .maindiv{
@@ -179,6 +180,7 @@ h3{
   align-items: center;
   flex-direction: column;
   height: 100%;
+  gap:20px;
 }
 
 </style>

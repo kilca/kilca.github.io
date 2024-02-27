@@ -1,7 +1,7 @@
 <template>
-  <div class="section-content">
+  <div>
     <h1>{{nom}}</h1>
-    <div>
+    <div class="contact-content">
       <p class="contact-text">
         {{text}}
       </p>
@@ -170,7 +170,12 @@ export default class Contact extends Vue {
   width: 50%;
   margin-left: auto;
   margin-right: auto;
-  font-size: 1.4vw;
+  font-size: 2vw;
+}
+
+.contact-content{
+  margin-left: 20px;
+    margin-right: 20px;
 }
 
 .contact-img-container{
@@ -195,14 +200,6 @@ export default class Contact extends Vue {
 .title3 {
   font-size: 16px;
   font-weight: 400;
-}
-
-.section-content {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  align-content: center;
-  justify-content: center;
 }
 
 .pinput {

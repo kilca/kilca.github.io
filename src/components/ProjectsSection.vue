@@ -1,5 +1,5 @@
 <template>
-<div class="maindiv">
+<div>
     <h1>{{nom}}</h1>  
     <div class="content-inner">
         <div class="tabcontent" >

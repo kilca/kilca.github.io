@@ -44,11 +44,25 @@ h1{
   color:#2980b9;
   font-size:3em;
   font-family: $Poppins;
+  position:relative;
+  display: inline-flex;
+  &:not(.fullname)::after{
+    content: "";
+    position: absolute;
+    bottom: -1rem;
+    left: 0;
+    right: 0;
+    width: 85%;
+    height: 5px;
+    transform: translateX(9%);
+    background-color: #06676f;
+    border-radius: 10px;
+  }
 }
 
 p{
   color:rgb(246, 241, 241);
-  font-family: $Fredoka, serif;
+  font-family: $Poppins;
   letter-spacing: 1px;
   line-height: 1.4;
   padding: 20px;

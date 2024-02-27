@@ -3,11 +3,7 @@
     <!-- The sidebar -->
     <div class="sidebar">
       <div class="presentation">
-        <div class="fill">
-          <div class="sidebar-toggle">
-            <LanguageToggle v-if="false" />
-            <DarkLightToggle v-if="false" />
-          </div>
+        <div>
           <img class="img-profile" :src="content?.profileImage" />
           <h1 class="fullname">
             {{ tr(content?.name).value }}
@@ -122,22 +118,22 @@
 
     <!-- Page content -->
     <div class="content">
-      <section class="fullpage">
+      <section class="page-section">
         <!-- 3D Presentation -->
         <PresentationSection
           :nom="tr(section?.about).value"
           :description="getDescriptions()"
         />
       </section>
-      <section class="fullpage fullotherpage">
+      <section class="page-section">
         <!-- Radial menu -->
         <SkillsSection :nom="tr(section?.skill).value" />
       </section>
-      <section class="fullpage">
+      <section class="page-section">
         <!-- Radial menu -->
         <ProjectsSection :nom="tr(section?.project).value" />
       </section>
-      <section class="fullpage fullotherpage">
+      <section class="page-section last-page-section">
         <!-- ??? -->
         <Contact
           :nom="tr(section?.contact).value"
@@ -145,8 +141,12 @@
           :text="tr(content?.contact).value"
         />
       </section>
+      <footer>
+        <p class="footer-text">© 2024 - Built by Kilian</p>
+       </footer>
     </div>
   </div>
+  
 </template>
 
 <script lang="ts">
@@ -154,8 +154,6 @@ import ProjectsSection from "./ProjectsSection.vue";
 import Contact from "./Contact.vue";
 import PresentationSection from "./PresentationSection.vue";
 import SkillsSection from "./SkillsSection.vue";
-import DarkLightToggle from "./helper/DarkLightToggle.vue";
-import LanguageToggle from "./helper/LanguageToggle.vue";
 import {
   onBeforeUnmount,
   defineComponent,
@@ -175,8 +173,6 @@ export default defineComponent({
     Contact,
     ProjectsSection,
     SkillsSection,
-    DarkLightToggle,
-    LanguageToggle,
   },
   data() {
     return {
@@ -290,7 +286,9 @@ $background-content-color: $color3;
 
 $text-content-color: $color2;
 $text-side-color: #fff;
-$sidebar-size: 400px;
+$sidebar-size1: 16%;
+$sidebar-size2: 340px; 
+$sidebar-size: max($sidebar-size1, $sidebar-size2);
 
 .link {
   cursor: pointer;
@@ -298,10 +296,6 @@ $sidebar-size: 400px;
 
 .selected {
   color: blue;
-}
-
-.sidebar-toggle {
-  display: flex;
 }
 
 .fullname {
@@ -410,17 +404,14 @@ div.content {
   }
 }
 
-.fullotherpage {
-  background-color: #181717;
-}
-
-.fullpage {
-  height: 100vh;
-  width: 100%;
-  //display: flex;
+.page-section {
+  margin-bottom: 8rem;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+.last-page-section{
+  margin-bottom: 0px;
 }
 
 h1 {
@@ -433,7 +424,7 @@ p {
   font-size: 1em;
 }
 
-.fullpage a {
+.page-section a {
   text-decoration: none;
   font-weight: 600;
   background: $background-content-color;
@@ -553,10 +544,6 @@ h1.black {
   width: 1.5rem;
 }
 
-.fill{
-  width: 100%;
-}
-
 .social a:hover svg path {
   //color:red;
   transition: fill 0.4s;
@@ -565,6 +552,10 @@ h1.black {
 
 .social-ref{
   cursor: pointer;
+}
+
+.footer-text{
+  margin: 0px;
 }
 
 </style>
