@@ -127,11 +127,11 @@
       </section>
       <section class="page-section">
         <!-- Radial menu -->
-        <SkillsSection :nom="tr(section?.skill).value" />
+        <ProjectsSection :nom="tr(section?.project).value" />
       </section>
       <section class="page-section">
         <!-- Radial menu -->
-        <ProjectsSection :nom="tr(section?.project).value" />
+        <SkillsSection :nom="tr(section?.skill).value" />
       </section>
       <section class="page-section last-page-section">
         <!-- ??? -->
@@ -197,12 +197,12 @@ export default defineComponent({
       if (this.section) {
         return [
           (this.tr as any)(this.section.about).value,
-          (this.tr as any)(this.section.skill).value,
           (this.tr as any)(this.section.project).value,
+          (this.tr as any)(this.section.skill).value,
           (this.tr as any)(this.section.contact).value,
         ];
       }
-      return ["About", "Skills", "Projets", "Contact"];
+      return ["About", "Projets","Skills", "Contact"];
     },
     openUrl() {
       window.open(this.link.cv, "_blank")?.focus();
@@ -246,8 +246,6 @@ export default defineComponent({
     };
   },
   mounted() {
-    const body = document.querySelector("body") as HTMLElement;
-    body.setAttribute("style", "margin:0;");
 
     const calculateSectionOffsets = () => {
       const sections = document.getElementsByTagName("section");

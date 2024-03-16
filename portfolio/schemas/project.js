@@ -16,8 +16,21 @@ export default defineType({
         type: 'localeString',
     }),
     defineField({
+      name: 'longDescription',
+      title: 'Long Description',
+      type: 'localeString',
+  }),
+    defineField({
       name: 'mainImage',
       title: 'Main image',
+      type: 'image',
+      options: {
+        hotspot: true,
+      },
+    }),
+    defineField({
+      name: 'preview',
+      title: 'Preview image',
       type: 'image',
       options: {
         hotspot: true,
@@ -45,12 +58,14 @@ export default defineType({
       title: 'Url Live',
       type: 'string',
     }),
+    /*
     defineField({
       title: 'Info',
       name: 'info',
       type: 'reference',
       to: [{type: 'projectInfo'}]
     }),
+    */
     defineField({
       name: 'skills',
       title: 'Skills',

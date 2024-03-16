@@ -3,8 +3,8 @@
     <h1>{{nom}}</h1>  
     <div class="content-inner">
         <div class="tabcontent" >
-           <div class="column" v-for="(category,index) in projectCategories" v-bind:key="category">
-              <h2 class="project-sub-title">{{tr(category.title).value}}</h2>
+             <RadioSelection @selection="handleSelection" />
+             <div>
                 <div class="card-container">
                   <div v-for="(project) in getCurrentProjects(index)" v-bind:key="project">
                     <CardProject :project="project"></CardProject>
@@ -19,12 +19,12 @@
 </template>
 
 <script lang="ts">
-//https://codepen.io/0guzhan/pen/YvNmwJ
 
 
 import { Project, ProjectCategory } from '@/store';
-import { computed, ComputedRef, defineComponent, inject, onMounted } from 'vue';
+import { computed, ComputedRef, defineComponent, inject, onMounted, ref } from 'vue';
 import { useStore } from 'vuex';
+import RadioSelection from "./helper/RadioSelection.vue";
 import CardProject from './helper/CardProject.vue';
 /*
 
@@ -34,6 +34,7 @@ export default defineComponent({
     nom:String
   },
   components:{
+    RadioSelection,
     CardProject
   },
  data(){
@@ -45,8 +46,8 @@ export default defineComponent({
     selectTab(index: number) {
         this.activeTab=index;
     },
-    getCurrentProjects(index:number): Project[]{
-      if (index === 0){
+    getCurrentProjects(): Project[]{
+      if (this.selectedOption === "personal"){
         return this.persProjects;
       }
       else{
@@ -64,6 +65,12 @@ export default defineComponent({
     const proProjects: ComputedRef<Project[]> = computed(()=> store.getters.projects.filter((project:Project)=> project.category?.title.en === projectCategories.value[1].title.en));
     console.log("persProjects",persProjects.value);
     const tr = inject('tr');
+    const selectedOption = ref('professional');
+
+    const handleSelection = (selected:string) => {
+      console.log("selected",selected);
+      selectedOption.value = selected;
+    };
     onMounted(()=>{
       store.dispatch("FetchProjectCategories", 1);
       store.dispatch("FetchProjects", 1);
@@ -72,7 +79,9 @@ export default defineComponent({
       projectCategories,
       persProjects,
       proProjects,
-      tr
+      tr,
+      selectedOption,
+      handleSelection
     }
   }
   
@@ -130,6 +139,7 @@ export default defineComponent({
   width: 95%;
     display: flex;
     gap: 8px;
+    flex-direction: column;
 }
 
 .column{
@@ -157,6 +167,7 @@ export default defineComponent({
   display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    flex-direction: column;
 }
 
 </style>

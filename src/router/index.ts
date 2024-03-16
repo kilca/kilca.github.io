@@ -12,16 +12,6 @@ const routes: Array<RouteRecordRaw> = [
     component: HomeView,
   },
   {
-    path: '/privacy',
-    name: 'privacy',
-    component: PrivacyPolicy,
-  },
-  {
-    path: '/faq',
-    name: 'faq',
-    component: Faq,
-  },
-  {
     path: '/:lang',
     name: 'homeWithLang',
     component: HomeView,

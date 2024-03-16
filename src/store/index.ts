@@ -195,25 +195,20 @@ const store = createStore({
             *[_type == "project"]
             {
               description,
+              longDescription,
               title,
+              "preview":preview.asset->url,
               "image":mainImage.asset->url,
               "category": *[_id == ^.category.category._ref][0]{
                 description,
                 title
                },
-              "test":info,
               skills[]->{
                 title,
                 "image":mainImage.asset->url
               },
               urlCode,
               urlLive,
-               "info": *[_id == ^.info._ref][0]{
-                description,
-                title,
-                "images":images[].asset->url
-               }
-              
             }`;
             sanity.fetch(query).then((projects:Project[]) =>{
                 commit('SET_PROJECTS',projects);
