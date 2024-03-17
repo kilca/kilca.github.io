@@ -1,12 +1,12 @@
 <template>
 <div>
-    <h1>{{nom}}</h1>  
+    <h1><RadioSelection @selection="handleSelection" /> <span>{{nom}}</span></h1>  
     <div class="content-inner">
         <div class="tabcontent" >
-             <RadioSelection @selection="handleSelection" />
+             
              <div>
                 <div class="card-container">
-                  <div v-for="(project) in getCurrentProjects(index)" v-bind:key="project">
+                  <div v-for="(project) in getCurrentProjects(index)" class="card-item" v-bind:key="project">
                     <CardProject :project="project"></CardProject>
                   </div>
                 </div>
@@ -94,6 +94,11 @@ export default defineComponent({
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 
+.card-item{
+  display: flex;
+  //margin: 0 auto 0 0; // force to left
+}
+
 .card-info{
     display:flex;
 }
@@ -166,8 +171,8 @@ export default defineComponent({
 .card-container{
   display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    flex-direction: column;
+    justify-content: space-evenly;
+    row-gap: 60px;
 }
 
 </style>

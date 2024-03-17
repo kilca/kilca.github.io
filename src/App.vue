@@ -50,6 +50,7 @@ h1{
   font-family: $Poppins;
   position:relative;
   display: inline-flex;
+  align-items: center;
   &:not(.fullname)::after{
     content: "";
     position: absolute;

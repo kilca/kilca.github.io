@@ -1,13 +1,9 @@
 <template>
 <ModalProject :project="project" v-if="showModal" @close="showModal = false" />
-<div class="flip-card">
-  <div class="flip-card-inner">
-    <div class="flip-card-front">
+<div class="card">
       <img :src="project.image" alt="Project Overview" class="flip-card-img">
-    </div>
-    <div class="flip-card-back">
       <h2 class="project-card-title">{{tr(project.title).value}}</h2> 
-      <h2 class="project-card-description">{{tr(project.description).value}}</h2> 
+      <p class="project-card-description">{{tr(project.description).value}}</p> 
       <div class="project-skills links">
         <!-- Code -->
         <button title="See the code" class="project-link-btn" @click="this.redirectToCode()" v-if="project.urlCode != null" >
@@ -29,8 +25,6 @@
           <span class="tooltiptext">{{skill.title}}</span>
         </div>
       </div>
-    </div>
-  </div>
 </div>
 </template>
 
@@ -69,6 +63,9 @@ export default defineComponent({
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 
+.t-card{
+  display: flex;
+}
 
 .project-link-svg{
   color: #26272a;
@@ -127,73 +124,30 @@ export default defineComponent({
   }
 }
 
-.flip-card {
-  min-height: 130px;
-  min-width: 130px;
-  margin:4px;
-  background-color: transparent;
-  perspective: 1000px;
-  width: calc(8.2vw + 8.2vh);
-  height: calc(8.2vw + 8.2vh);
-  @media (max-width: 600px){
-    min-height: 80px;
-    min-width: 80px;
-  }
-  @media (max-width: 1800px) {
-    width: calc(6.5vw + 6.5vh);
-    height: calc(6.5vw + 6.5vh);
-  }
-  @media (max-width: 1400px) {
-    width: calc(5.5vw + 5.5vh);
-    height: calc(5.5vw + 5.5vh);
-  }
-
-}
-
-.flip-card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  padding:20px;
+  border-radius: 20px;
+  margin-top:10px;
+  max-width: 300px;
+  margin: auto;
   text-align: center;
-  transition: transform 0.6s;
-  transform-style: preserve-3d;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  font-family: arial;
+  flex: 1 1 0px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 14vw;
+  min-width: 20vw;
+  background-color: #0a3848;;
+  color:white;
 }
-
-.flip-card:hover .flip-card-inner {
-  transform: rotateY(180deg);
-}
-
 .flip-card-img{
   width:100%;
   height: 100%;
   border-radius: 10px;
 }
 
-.flip-card-front, .flip-card-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  border-radius: 10px;
-}
-
-.flip-card-front {
-  border-radius: 10px;
-  background-color: #151616;
-  color: black;
-}
-
-.flip-card-back {
-  display: flex;
-  justify-content: space-around;
-  flex-direction: column;
-  border-radius: 10px;
-  background-color: #0f2942;;
-  color: white;
-  transform: rotateY(180deg);
-}
 
 // Tooltip
 
