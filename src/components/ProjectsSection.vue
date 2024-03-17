@@ -170,8 +170,7 @@ export default defineComponent({
 
 .card-container{
   display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
+  flex-direction: column;
     row-gap: 60px;
 }
 
