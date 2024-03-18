@@ -1,29 +1,48 @@
 <template>
-<div class="select-project-category">
-  <select ref="selectElement" class="project-select" name="category" id="category" v-model="selected" @change="emitSelection">
-    <option value="professional">Professional</option>
-    <option value="personal">Personal</option>
-  </select>
+  <div class="select-project-category">
+    <select ref="selectElement" class="project-select" name="category" id="category" v-model="selected" @change="emitSelection">
+      <option :key="category" v-for="category in projectCategories" :value="category">{{ tr(category.title).value }}</option>
+    </select>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, Ref } from 'vue';
+import { ProjectCategory } from '@/store';
+import { tr } from '@/utils/utils';
+import { defineComponent, inject, watch } from 'vue';
 
 export default defineComponent({
-  data() {
-    return {
-      selected: 'professional' // Set default selection
-    };
-  },
+  props: ['projectCategories'],
   methods: {
+    getProjectsName() {
+      return this.projectCategories.map((category: ProjectCategory) => tr(category.title).value);
+    },
     emitSelection() {
-      // Emit the selected value to the parent component
       this.$emit('selection', this.selected);
     },
+  },
+  data() {
+    return {
+      selected: ''
+    };
+  },
+  setup() {
+    const tr = inject("tr");
+    return {
+      tr,
+    };
+  },
+  watch: {
+    projectCategories: {
+      immediate: true,
+      handler(newVal) {
+        if (newVal && newVal.length > 0) {
+          this.selected = this.projectCategories[0];
+        }
+      }
+    }
   }
 });
-
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

@@ -1,6 +1,6 @@
 <template>
 <div>
-    <h1><RadioSelection @selection="handleSelection" /> <span>{{nom}}</span></h1>  
+    <h1><RadioSelection :projectCategories="getProjectCategories()" @selection="handleSelection" /> <span>{{nom}}</span></h1>  
     <div class="content-inner">
         <div class="tabcontent" >
              
@@ -26,9 +26,7 @@ import { computed, ComputedRef, defineComponent, inject, onMounted, ref } from '
 import { useStore } from 'vuex';
 import RadioSelection from "./helper/RadioSelection.vue";
 import CardProject from './helper/CardProject.vue';
-/*
 
-*/
 export default defineComponent({
   props:{
     nom:String
@@ -36,6 +34,16 @@ export default defineComponent({
   components:{
     RadioSelection,
     CardProject
+  },
+    watch: {
+    projectCategories: {
+      immediate: true,
+      handler(newVal) {
+        if (newVal && newVal.length > 0) {
+          this.selectedOption = this.projectCategories[0];
+        }
+      }
+    }
   },
  data(){
     return {
@@ -46,12 +54,24 @@ export default defineComponent({
     selectTab(index: number) {
         this.activeTab=index;
     },
+    getProjectCategories(){
+      return this.projectCategories;
+    },
+    isEqual(obj1?: ProjectCategory, obj2?: ProjectCategory){
+      return obj1?.title?.en == obj2?.title?.en;
+    },
     getCurrentProjects(): Project[]{
-      if (this.selectedOption === "personal"){
-        return this.persProjects;
-      }
-      else{
-        return this.proProjects;
+      const selectedProject = this.projects.filter((project: Project) => this.isEqual(project.category,this.selectedOption));
+      if (selectedProject.length > 0) {
+        return selectedProject;
+      }else{
+        const defaultCategory = this.projectCategories[0];
+        const defaultProjects = this.projects.filter((project: Project) => this.isEqual(project.category, defaultCategory));
+        if (defaultProjects.length > 0) {
+          return defaultProjects;
+        }else{
+          return [];
+        }
       }
     }
   },
@@ -61,14 +81,11 @@ export default defineComponent({
   setup(){
     const store = useStore();
     const projectCategories: ComputedRef<ProjectCategory[]> = computed(()=> store.getters.projectCategories);
-    const persProjects: ComputedRef<Project[]> = computed(()=> store.getters.projects.filter((project:Project)=> project.category?.title.en === projectCategories.value[0].title.en));
-    const proProjects: ComputedRef<Project[]> = computed(()=> store.getters.projects.filter((project:Project)=> project.category?.title.en === projectCategories.value[1].title.en));
-    console.log("persProjects",persProjects.value);
+    const projects = computed(()=> store.getters.projects);
     const tr = inject('tr');
-    const selectedOption = ref('professional');
+    const selectedOption = ref();
 
-    const handleSelection = (selected:string) => {
-      console.log("selected",selected);
+    const handleSelection = (selected:ProjectCategory) => {
       selectedOption.value = selected;
     };
     onMounted(()=>{
@@ -77,8 +94,7 @@ export default defineComponent({
     })
     return {
       projectCategories,
-      persProjects,
-      proProjects,
+      projects,
       tr,
       selectedOption,
       handleSelection

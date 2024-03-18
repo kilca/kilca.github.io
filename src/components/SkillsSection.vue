@@ -7,7 +7,7 @@
         <div class="tabcontent">
           <div class="img-skill-container" v-for="(techno) in skill.skills" v-bind:key="techno.title.en">
               <!-- scatter ? ou circle menu ?-->
-              <img class="img-skill" :src="techno.image" />
+              <img class="img-skill" :src="techno.image || techno.url" />
                 <h5 class="test">{{techno.title}}</h5>
           </div>
         </div>
