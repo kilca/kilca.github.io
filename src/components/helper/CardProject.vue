@@ -5,7 +5,7 @@
     @close="showModal = false"
   />
   <div class="card">
-    <div class="a">
+    <div class="project-part-presentation">
       <h2 class="project-card-title">{{ tr(project.title).value }}</h2>
       <div class="project-skills">
         <div v-for="skill in project.skills" v-bind:key="skill" class="tooltip">
@@ -94,7 +94,7 @@
         </button>
       </div>
     </div>
-    <div class="b">
+    <div class="project-part-image">
       <img :src="project.image" alt="Project Overview" class="project-image" />
     </div>
   </div>
@@ -146,10 +146,6 @@ $project-skill-img-size: 30px;
   filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.5));
 }
 
-.t-card {
-  display: flex;
-}
-
 .project-link-svg {
   color: #26272a;
 }
@@ -161,10 +157,10 @@ $project-skill-img-size: 30px;
 .project-link-btn:hover {
   background-color: black !important;
 }
-.b {
+.project-part-image {
   display: flex;
 }
-.a {
+.project-part-presentation {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -187,7 +183,7 @@ $project-skill-img-size: 30px;
 /* Set flex direction for even pairs */
 .card-item:nth-child(even) .card {
   flex-direction: row;
-  .a {
+  .project-part-presentation {
     background-color: #146489;
   }
 }
@@ -195,7 +191,7 @@ $project-skill-img-size: 30px;
 /* Set flex direction for odd pairs */
 .card-item:nth-child(odd) .card {
   flex-direction: row-reverse;
-  .a {
+  .project-part-presentation {
     background-color: #122133;
   }
 }
@@ -238,13 +234,6 @@ $project-skill-img-size: 30px;
   }
 }
 
-.project-card-description {
-  font-size: 16px;
-  @media (max-width: 1800px) {
-    display: none;
-  }
-}
-
 .card {
   display: flex;
   width: 100%;
@@ -259,12 +248,6 @@ $project-skill-img-size: 30px;
   .card {
     flex-direction: row !important;
   }
-}
-
-.flip-card-img {
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
 }
 
 // Tooltip

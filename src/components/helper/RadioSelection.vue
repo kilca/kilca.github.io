@@ -48,14 +48,6 @@ export default defineComponent({
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">@import url("https://fonts.googleapis.com/css?family=Inter:400'");
 
-.project-title {
-  color: #2980b9;
-  font-size: 3em;
-  font-family: "Poppins";
-  position: relative;
-  display: inline-flex;
-}
-
 .select-project-category {
   text-align: center;
   border: 1px solid #2980b9;
