@@ -9,7 +9,7 @@
 <script lang="ts">
 import { ProjectCategory } from '@/store';
 import { tr } from '@/utils/utils';
-import { defineComponent, inject, watch } from 'vue';
+import { defineComponent, inject } from 'vue';
 
 export default defineComponent({
   props: ['projectCategories'],
@@ -46,7 +46,8 @@ export default defineComponent({
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">@import url("https://fonts.googleapis.com/css?family=Inter:400'");
+<style scoped lang="scss">
+@import url("https://fonts.googleapis.com/css?family=Inter:400'");
 
 .select-project-category {
   text-align: center;
@@ -56,9 +57,6 @@ export default defineComponent({
   position: relative;
   /* Reset default styles */
   select {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
     background: none;
     border: none;
     padding: 0;
@@ -67,18 +65,6 @@ export default defineComponent({
     font-family: inherit;
     color: inherit;
   }
-}
-
-.project-select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  padding: 10px;
-  font-size: inherit;
-  border: 1px solid #2980b9;
-  color: #2980b9;
-  font-family: "Poppins";
-  text-align: center;
 }
 
 </style>

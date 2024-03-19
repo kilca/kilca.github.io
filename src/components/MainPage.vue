@@ -28,7 +28,12 @@
         <div class="socialdiv">
           <ul class="social">
             <li>
-              <a class="social-ref" alt="github" target="_blank" :href="link?.github">
+              <a
+                class="social-ref"
+                alt="github"
+                target="_blank"
+                :href="link?.github"
+              >
                 <svg
                   aria-hidden="true"
                   focusable="false"
@@ -48,7 +53,12 @@
               </a>
             </li>
             <li>
-              <a class="social-ref" alt="linkedin" target="_blank" :href="link?.linkedin">
+              <a
+                class="social-ref"
+                alt="linkedin"
+                target="_blank"
+                :href="link?.linkedin"
+              >
                 <svg
                   aria-hidden="true"
                   focusable="false"
@@ -68,12 +78,31 @@
               </a>
             </li>
             <li>
-              <a class="social-ref" alt="medium" target="_blank" :href="'https://medium.com/@kilian.cannet'">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M13.4093 12.0071C13.4093 15.4573 10.6314 18.2544 7.20454 18.2544C3.77771 18.2544 1 15.4582 1 12.0071C1 8.55605 3.77792 5.76001 7.20454 5.76001C10.6312 5.76001 13.4093 8.55689 13.4093 12.0071ZM20.216 12.0071C20.216 15.2551 18.8269 17.8878 17.1136 17.8878C15.4003 17.8878 14.0112 15.2542 14.0112 12.0071C14.0112 8.75999 15.4003 6.1264 17.1136 6.1264C18.8269 6.1264 20.216 8.75999 20.216 12.0071ZM23 12.0071C23 14.9171 22.5114 17.276 21.9088 17.276C21.3063 17.276 20.8177 14.9163 20.8177 12.0071C20.8177 9.09793 21.3063 6.73823 21.9091 6.73823C22.5118 6.73823 23 9.0973 23 12.0071Z"></path></svg>
+              <a
+                class="social-ref"
+                alt="medium"
+                target="_blank"
+                :href="'https://medium.com/@kilian.cannet'"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M13.4093 12.0071C13.4093 15.4573 10.6314 18.2544 7.20454 18.2544C3.77771 18.2544 1 15.4582 1 12.0071C1 8.55605 3.77792 5.76001 7.20454 5.76001C10.6312 5.76001 13.4093 8.55689 13.4093 12.0071ZM20.216 12.0071C20.216 15.2551 18.8269 17.8878 17.1136 17.8878C15.4003 17.8878 14.0112 15.2542 14.0112 12.0071C14.0112 8.75999 15.4003 6.1264 17.1136 6.1264C18.8269 6.1264 20.216 8.75999 20.216 12.0071ZM23 12.0071C23 14.9171 22.5114 17.276 21.9088 17.276C21.3063 17.276 20.8177 14.9163 20.8177 12.0071C20.8177 9.09793 21.3063 6.73823 21.9091 6.73823C22.5118 6.73823 23 9.0973 23 12.0071Z"
+                  ></path>
+                </svg>
               </a>
             </li>
             <li>
-              <a alt="cv" class="link social-ref" target="_blank" @click="openUrl()" style="transform: translate(0px, 2px);">
+              <a
+                alt="cv"
+                class="link social-ref"
+                target="_blank"
+                @click="openUrl()"
+                style="transform: translate(0px, 2px)"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -101,44 +130,63 @@
 
         <div class="flagdiv">
           <span v-on:click="redirectToFrench" class="fi flag">
-            <svg xmlns="http://www.w3.org/2000/svg" id="flag-icons-fr" viewBox="0 0 640 480">
-              <path fill="#fff" d="M0 0h640v480H0z"/>
-              <path fill="#002654" d="M0 0h213.3v480H0z"/>
-              <path fill="#ce1126" d="M426.7 0H640v480H426.7z"/>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              id="flag-icons-fr"
+              viewBox="0 0 640 480"
+            >
+              <path fill="#fff" d="M0 0h640v480H0z" />
+              <path fill="#002654" d="M0 0h213.3v480H0z" />
+              <path fill="#ce1126" d="M426.7 0H640v480H426.7z" />
             </svg>
           </span>
           <span v-on:click="redirectToDefault" class="fi flag">
-            <svg xmlns="http://www.w3.org/2000/svg" id="flag-icons-gb" viewBox="0 0 640 480">
-              <path fill="#012169" d="M0 0h640v480H0z"/>
-              <path fill="#FFF" d="m75 0 244 181L562 0h78v62L400 241l240 178v61h-80L320 301 81 480H0v-60l239-178L0 64V0h75z"/>
-              <path fill="#C8102E" d="m424 281 216 159v40L369 281h55zm-184 20 6 35L54 480H0l240-179zM640 0v3L391 191l2-44L590 0h50zM0 0l239 176h-60L0 42V0z"/>
-              <path fill="#FFF" d="M241 0v480h160V0H241zM0 160v160h640V160H0z"/>
-              <path fill="#C8102E" d="M0 193v96h640v-96H0zM273 0v480h96V0h-96z"/>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              id="flag-icons-gb"
+              viewBox="0 0 640 480"
+            >
+              <path fill="#012169" d="M0 0h640v480H0z" />
+              <path
+                fill="#FFF"
+                d="m75 0 244 181L562 0h78v62L400 241l240 178v61h-80L320 301 81 480H0v-60l239-178L0 64V0h75z"
+              />
+              <path
+                fill="#C8102E"
+                d="m424 281 216 159v40L369 281h55zm-184 20 6 35L54 480H0l240-179zM640 0v3L391 191l2-44L590 0h50zM0 0l239 176h-60L0 42V0z"
+              />
+              <path
+                fill="#FFF"
+                d="M241 0v480h160V0H241zM0 160v160h640V160H0z"
+              />
+              <path
+                fill="#C8102E"
+                d="M0 193v96h640v-96H0zM273 0v480h96V0h-96z"
+              />
             </svg>
           </span>
         </div>
-
       </div>
     </div>
 
     <!-- Page content -->
     <div class="content">
-      <section class="page-section">
+      <section class="page-section" ref="aboutSection">
         <!-- 3D Presentation -->
         <PresentationSection
           :nom="tr(section?.about).value"
           :description="getDescriptions()"
         />
       </section>
-      <section class="page-section">
+      <section class="page-section" ref="projectsSection">
         <!-- Radial menu -->
         <ProjectsSection :nom="tr(section?.project).value" />
       </section>
-      <section class="page-section">
+      <section class="page-section" ref="skillsSection">
         <!-- Radial menu -->
         <SkillsSection :nom="tr(section?.skill).value" />
       </section>
-      <section class="page-section last-page-section">
+      <section class="page-section last-page-section" ref="contactSection">
         <!-- ??? -->
         <Contact
           :nom="tr(section?.contact).value"
@@ -148,10 +196,9 @@
       </section>
       <footer>
         <p class="footer-text">© 2024 - Built by Kilian</p>
-       </footer>
+      </footer>
     </div>
   </div>
-  
 </template>
 
 <script lang="ts">
@@ -160,12 +207,14 @@ import Contact from "./Contact.vue";
 import PresentationSection from "./PresentationSection.vue";
 import SkillsSection from "./SkillsSection.vue";
 import {
+  ref,
   onBeforeUnmount,
   defineComponent,
   onMounted,
   computed,
   ComputedRef,
   inject,
+  Ref,
 } from "vue";
 import { useStore } from "vuex";
 import { Content, Link, LocaleString, Section } from "@/store";
@@ -188,10 +237,10 @@ export default defineComponent({
   },
   methods: {
     redirectToFrench() {
-      this.$router.push({ path: '/fr' });
+      this.$router.push({ path: "/fr" });
     },
     redirectToDefault() {
-      this.$router.push({ path: '/' });
+      this.$router.push({ path: "/" });
     },
     getDescriptions() {
       return this.content?.description?.map(
@@ -207,62 +256,79 @@ export default defineComponent({
           (this.tr as any)(this.section.contact).value,
         ];
       }
-      return ["About", "Projets","Skills", "Contact"];
+      return ["About", "Projets", "Skills", "Contact"];
     },
     openUrl() {
       window.open(this.link.cv, "_blank")?.focus();
     },
     getSectionIndex() {
-      for (let i = 0; i < this.offsets.length; i++) {
-        if (this.offsets[i] > this.windowTop) {
+      const sectionOffsets = this.offsets;
+      const scrollY = this.windowTop;
+      console.log("offsets",sectionOffsets, scrollY);
+      for (let i = 0; i < sectionOffsets.length; i++) {
+        if (sectionOffsets[i] > scrollY) {
           return i - 1;
         }
       }
-      return this.offsets.length - 1;
+      return sectionOffsets.length - 1;
     },
-    scrollToSection(id: any, force = false) {
+    getSectionsOffets(){
+      const sections: (HTMLElement | null)[] = [
+        this.aboutSection,
+        this.projectsSection,
+        this.skillsSection,
+        this.contactSection,
+      ].filter((section) => section); // Filter out null values
+
+      // Calculate offsets only if all refs are defined
+      if (sections.every((section) => section)) {
+        return sections.map(
+          (section) => (section?.offsetTop || 0) - 100
+        );
+      }else{
+        return [];
+      }
+    },
+    scrollToSection(id: number, force = false) {
       if (this.inMove && !force) return false;
 
+      const sections = [
+        this.aboutSection,
+        this.projectsSection,
+        this.skillsSection,
+        this.contactSection,
+      ];
+
       this.inMove = true;
-      document.getElementsByTagName("section")[id].scrollIntoView({ behavior: "smooth" });
+      sections[id]?.scrollIntoView({ behavior: "smooth" });
       setTimeout(() => {
         this.inMove = false;
       }, 600);
     },
   },
-
-  setup() {
-    const store = useStore();
-    const section: ComputedRef<Section> = computed(() => store.getters.section);
-    const content: ComputedRef<Content> = computed(() => store.getters.content);
-    const link: ComputedRef<Link> = computed(() => store.getters.link);
-    onMounted(() => {
-      store.dispatch("FetchSection", 1);
-      store.dispatch("FetchContent", 1);
-      store.dispatch("FetchLink", 1);
-    });
-
-    const tr = inject('tr');
-    return {
-      section,
-      content,
-      link,
-      tr
-    };
-  },
   mounted() {
 
     const calculateSectionOffsets = () => {
-      const sections = document.getElementsByTagName("section");
-      this.offsets = [];
-      const length = sections.length;
-      for (let i = 0; i < length; i++) {
-        const sectionOffset = sections[i].offsetTop - 100;
-        this.offsets.push(sectionOffset);
+      // Ensure that refs are defined before accessing their properties
+      const sections: (HTMLElement | null)[] = [
+        this.aboutSection,
+        this.projectsSection,
+        this.skillsSection,
+        this.contactSection,
+      ].filter((section) => section); // Filter out null values
+
+      // Calculate offsets only if all refs are defined
+      if (sections.every((section) => section)) {
+        this.offsets =  sections.map(
+          (section) => (section?.offsetTop || 0) - 100
+        );
+      }else{
+        return [];
       }
     };
     const onScroll = (e: any) => {
       this.windowTop = window?.top?.scrollY as number;
+      calculateSectionOffsets();
     };
     calculateSectionOffsets();
     window.addEventListener("scroll", onScroll);
@@ -273,24 +339,48 @@ export default defineComponent({
       window.removeEventListener("resize", calculateSectionOffsets);
     });
   },
+  setup() {
+    const store = useStore();
+    const section: ComputedRef<Section> = computed(() => store.getters.section);
+    const content: ComputedRef<Content> = computed(() => store.getters.content);
+    const link: ComputedRef<Link> = computed(() => store.getters.link);
+    onMounted(() => {
+      store.dispatch("FetchSection", 1);
+      store.dispatch("FetchContent", 1);
+      store.dispatch("FetchLink", 1);
+    });
+    const tr = inject("tr");
+
+    const aboutSection: Ref<HTMLElement | null> = ref(null);
+    const projectsSection: Ref<HTMLElement | null> = ref(null);
+    const skillsSection: Ref<HTMLElement | null> = ref(null);
+    const contactSection: Ref<HTMLElement | null> = ref(null);
+
+    return {
+      section,
+      content,
+      link,
+      tr,
+      aboutSection,
+      projectsSection,
+      skillsSection,
+      contactSection,
+    };
+  },
 });
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-$color1: #242934;
-$color2: #e4e2e0;
-$color3: #202123;
-$color5: #0a0a0c;
-$color6: #45464b;
 
-$background-sidebar-color: $color5;
-$background-content-color: $color3;
-
-$text-content-color: $color2;
+$background-sidebar-color: #0a0a0c;
+$background-content-color: #202123;
+$text-content-color: #e4e2e0;
 $text-side-color: #fff;
+$name-color: #1a997b;
+
 $sidebar-size1: 16%;
-$sidebar-size2: 340px; 
+$sidebar-size2: 340px;
 $sidebar-size: max($sidebar-size1, $sidebar-size2);
 
 .link {
@@ -302,13 +392,13 @@ $sidebar-size: max($sidebar-size1, $sidebar-size2);
 }
 
 .fullname {
-  color: #1a997b;
+  color: $name-color;
 }
 
 .img-profile {
   width: 240px;
   height: 240px;
-  margin-top:15px;
+  margin-top: 15px;
   border-radius: 50%;
   margin-bottom: 5px;
   border: 3px solid #f6f2f2b9;
@@ -340,7 +430,6 @@ $sidebar-size: max($sidebar-size1, $sidebar-size2);
 .section-name {
   color: white;
 }
-
 
 .presentation {
   display: flex;
@@ -413,7 +502,7 @@ div.content {
   align-items: center;
   flex-direction: column;
 }
-.last-page-section{
+.last-page-section {
   margin-bottom: 0px;
 }
 
@@ -457,7 +546,7 @@ h1.black {
 }
 
 .sections-menu {
-  @media screen and (max-width: 700px){
+  @media screen and (max-width: 700px) {
     display: none;
   }
   /*
@@ -504,14 +593,13 @@ h1.black {
 // --------- Liste
 
 .flagdiv {
-    display: flex;
-    justify-content: center; /* Center-align the image containers horizontally */
-    gap: 20px; /* Sets the gap between image containers */
-    margin-bottom: 20px;
-    
+  display: flex;
+  justify-content: center; /* Center-align the image containers horizontally */
+  gap: 20px; /* Sets the gap between image containers */
+  margin-bottom: 20px;
 }
 
-.flag{
+.flag {
   cursor: pointer;
   scale: 1.5;
   padding: 0;
@@ -551,12 +639,11 @@ h1.black {
   fill: #1d51ca;
 }
 
-.social-ref{
+.social-ref {
   cursor: pointer;
 }
 
-.footer-text{
+.footer-text {
   margin: 0px;
 }
-
 </style>

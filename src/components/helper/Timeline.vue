@@ -19,6 +19,9 @@
 </template>
 
 <script lang="ts">
+/*
+  Non utilisé dans le projet pour le moment
+*/
 import { Options, Vue } from "vue-class-component";
 
 @Options({
