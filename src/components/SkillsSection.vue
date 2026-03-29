@@ -1,19 +1,24 @@
 <template>
-<div class="maindiv">
-    <h1>{{nom}}</h1>  
+  <div class="skills-section">
+    <h1>{{ nom }}</h1>
     <div class="content-inner">
-      <template v-for="(skill) in skills" v-bind:key="skill">
-        <h3>{{tr(skill.title).value}}</h3>
-        <div class="tabcontent">
-          <div class="img-skill-container" v-for="(techno) in skill.skills" v-bind:key="techno.title.en">
-              <!-- scatter ? ou circle menu ?-->
-              <img class="img-skill" :src="techno.image || techno.url" />
-                <h5 class="test">{{techno.title}}</h5>
+      <template v-for="(skill) in skills" :key="skill.title?.en">
+        <div class="skill-category">
+          <h3 class="category-title">{{ tr(skill.title).value }}</h3>
+          <div class="skills-grid">
+            <div
+              class="skill-chip"
+              v-for="techno in skill.skills"
+              :key="techno.title?.en || techno.title"
+            >
+              <img class="skill-icon" :src="techno.image || techno.url" :alt="techno.title" />
+              <span class="skill-name">{{ techno.title }}</span>
+            </div>
           </div>
         </div>
       </template>
     </div>
-</div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -21,166 +26,88 @@ import { computed, defineComponent, inject, onMounted } from 'vue';
 import { useStore } from 'vuex';
 
 export default defineComponent({
-  props:{
-    nom:String
-  },
- data(){
-    return {
-      activeTab:0 as number,
-    } 
-  },
-  methods: {
-    selectTab(index: number) {
-        this.activeTab=index;
-    }
-  },
-
-  setup(){
+  props: { nom: String },
+  setup() {
     const store = useStore();
-    const skills = computed(()=> store.getters.skills);
-    onMounted(()=>{
-      store.dispatch("FetchSkills", 1);
-    })
+    const skills = computed(() => store.getters.skills);
+    onMounted(() => { store.dispatch("FetchSkills", 1); });
     const tr = inject('tr');
-    return {
-      skills,
-      tr
-    }
-  }
-  
+    return { skills, tr };
+  },
 });
-
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+$accent: #1a997b;
+$text-primary: #f0ede8;
+$text-muted: #b1b1bd;
+$border: rgba(255,255,255,0.07);
 
-.test{
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  padding: 0.25em 1em;
-  font-size: 14px;
-  line-height: 1.2;
-  text-align: center;
-  color: #fff;
-  background: rgba(70, 70, 70, 0.95);
-  background: #333;
-  white-space: nowrap;
-  border-radius: 1em;
-  position: absolute;
-  transform: translate(-50%, 150%);
+.skills-section {
+  width: 100%;
+  padding-bottom: 2rem;
+
+  h1 { margin-bottom: 4rem; }
 }
 
-.img-skill{
-  //width:140px;
-  //height:140px;
-  width: calc(3.2vw + 3.2vh);
-  height: calc(3.2vh + 3.2vw);
-  @media screen and (max-height: 700px) {
-    width: calc(2.8vw + 2.8vh);
-    height: calc(2.8vh + 2.8vw);
-  }
-  border-radius: 25%;
-  border: 2px solid #857c7c6b;
-}
-
-h3{
-  color: #ffcc35;
-  font-size: 30px;
-}
-
-.maindiv{
-    height: 100%;
-    width: 100%;
-    display:block;
-}
-
-/* Style the tab */
-.tab {
-  width: 30%;
-  display:flex;
-}
-
-.img-skill-container{
-  position: relative;
-  text-align: center;
-  color: white;
-  /*flex: 1 0 auto;
-  flex-basis: 100px;
-  */
-  flex: 0 0 18.333333%;
-}
-.img-skill-title{
-  display:none;
-}
-
-/*
-.img-skill-container:hover > .img-skill{
-  filter: brightness(0.7);
-  border: 4px solid #857c7c6b;
-}
-
-
-.img-skill-container:hover > .img-skill-title{
-  display: block;
-  color: red;
-}
-*/
-
-.img-skill-title{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.tab{
-  justify-content: space-around;
-}
-
-/* Style the buttons inside the tab */
-.tab button {
-  display: block;
-  background-color: darkcyan;
-  color: white;
-  padding: 22px 16px;
-  border: 1px solid blanchedalmond;
-  outline: none;
-  text-align: left;
-  cursor: pointer;
-  transition: 0.3s;
-  font-size: 17px;
-  text-align: center;
-}
-
-/* Change background color of buttons on hover */
-.tab button:hover {
-  background-color: #ddd;
-  color:cornflowerblue;
-}
-
-/* Create an active/current "tab button" class */
-.tab button.active {
-  background-color: #ccc;
-}
-
-/* Style the tab content */
-.tabcontent {
-  width: 80%;
-  align-items: flex-start;
-  height:100%;
+.content-inner {
   display: flex;
-  justify-content: space-evenly;
-  flex-wrap:wrap;
-}
-
-.content-inner{
-  display: flex;
-  align-items: center;
   flex-direction: column;
-  height: 100%;
-  gap:20px;
+  align-items: center;
+  gap: 2.5rem;
+  padding: 0 clamp(1rem, 6vw, 5rem);
 }
 
+.skill-category {
+  width: 100%;
+  max-width: 860px;
+}
+
+.category-title {
+  color: $accent;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin: 0 0 1.25rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid $border;
+}
+
+.skills-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.skill-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.5em 1em 0.5em 0.65em;
+  border: 1px solid $border;
+  border-radius: 50px;
+  background: rgba(255,255,255,0.03);
+  transition: border-color 0.2s, background 0.2s;
+
+  &:hover {
+    border-color: rgba(26, 153, 123, 0.4);
+    background: rgba(26, 153, 123, 0.07);
+  }
+}
+
+.skill-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  object-fit: contain;
+}
+
+.skill-name {
+  font-size: 0.88rem;
+  font-family: 'Poppins', sans-serif;
+  color: $text-muted;
+  white-space: nowrap;
+}
 </style>

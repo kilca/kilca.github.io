@@ -1,277 +1,253 @@
 <template>
-  <ModalProject
-    :project="project"
-    v-if="showModal"
-    @close="showModal = false"
-  />
+  <ModalProject :project="project" v-if="showModal" @close="showModal = false" />
   <div class="card">
+    <div class="project-part-image">
+      <img :src="project.image" alt="Project Overview" class="project-image" />
+      <div class="image-overlay"></div>
+    </div>
     <div class="project-part-presentation">
-      <h2 class="project-card-title">{{ tr(project.title).value }}</h2>
-      <div class="project-skills">
-        <div v-for="skill in project.skills" v-bind:key="skill" class="tooltip">
-          <img
-            :src="skill.image || skill.url"
-            alt="project-skill"
-            class="project-skill-img"
-          />
-          <span class="tooltiptext">{{ skill.title }}</span>
+      <div class="project-meta">
+        <h2 class="project-card-title">{{ tr(project.title).value }}</h2>
+        <div class="project-skills" v-if="project.skills?.length">
+          <div v-for="skill in project.skills" :key="skill.title" class="tooltip">
+            <img :src="skill.image || skill.url" alt="project-skill" class="project-skill-img" />
+            <span class="tooltiptext">{{ skill.title }}</span>
+          </div>
         </div>
       </div>
-      <p class="project-card-description">
-        {{ tr(project.description).value }}
-      </p>
-      <div class="project-skills links">
-        <!-- Code -->
+      <p class="project-card-description">{{ tr(project.description).value }}</p>
+      <div class="project-actions">
         <button
+          v-if="project.urlCode"
           title="See the code"
-          class="project-link-btn"
-          @click="this.redirectToCode()"
-          v-if="project.urlCode != null"
+          class="action-btn"
+          @click="redirectToCode()"
         >
-          <svg
-            class="project-link-svg feather feather-code"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="16 18 22 12 16 6"></polyline>
             <polyline points="8 6 2 12 8 18"></polyline>
           </svg>
+          Code
         </button>
-        <!-- Info description projet -->
         <button
+          v-if="project.info"
           title="See more info"
-          class="project-link-btn"
+          class="action-btn"
           @click="showModal = true"
-          v-if="project.info != null"
         >
-          <svg
-            class="project-link-svg feather feather-code"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"></circle>
             <line x1="12" y1="16" x2="12" y2="12"></line>
             <line x1="12" y1="8" x2="12.01" y2="8"></line>
           </svg>
+          Details
         </button>
-
-        <!-- Live Project -->
         <button
-          title="See it on live"
-          class="project-link-btn"
-          @click="this.redirectToLive()"
-          v-if="project.urlLive != null"
+          v-if="project.urlLive"
+          title="See it live"
+          class="action-btn action-btn--primary"
+          @click="redirectToLive()"
         >
-          <svg
-            class="project-link-svg feather feather-code"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
             <circle cx="12" cy="12" r="3"></circle>
           </svg>
+          Live
         </button>
       </div>
-    </div>
-    <div class="project-part-image">
-      <img :src="project.image" alt="Project Overview" class="project-image" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "@vue/runtime-core";
-import { inject } from "vue";
+import { defineComponent, inject, ref } from "vue";
 import ModalProject from "./ModalProject.vue";
+
 export default defineComponent({
   props: ["project"],
-  components: {
-    ModalProject,
-  },
-  data: function () {
-    return {
-      showModal: false,
-    };
+  components: { ModalProject },
+  data() {
+    return { showModal: false };
   },
   methods: {
-    redirectToLive: function () {
-      window.open(this.project.urlLive, "_blank");
-    },
-    redirectToCode: function () {
-      window.open(this.project.urlCode, "_blank");
-    },
+    redirectToLive() { window.open(this.project.urlLive, "_blank"); },
+    redirectToCode() { window.open(this.project.urlCode, "_blank"); },
   },
   setup() {
     const tr = inject("tr");
-    return {
-      tr,
-    };
+    return { tr };
   },
 });
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-$project-skill-img-size: 30px;
-
-.project-skill-img {
-  width: $project-skill-img-size;
-  height: $project-skill-img-size;
-  border-radius: 50%;
-  margin-right: 5px;
-  margin-bottom: 5px;
-  padding: 4px;
-  background-color: white;
-  filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.5));
-}
-
-.project-link-svg {
-  color: #26272a;
-}
-
-.project-link-btn:hover .project-link-svg {
-  color: white !important;
-}
-
-.project-link-btn:hover {
-  background-color: black !important;
-}
-.project-part-image {
-  display: flex;
-}
-.project-part-presentation {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  justify-content: center;
-  align-items: center;
-}
-.project-image {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  //width: calc(clamp(400px, 40vw, 600px)* 1.05);
-  height: 14vw;
-  overflow: hidden;
-  filter: drop-shadow(0px 0px 20px rgba(0, 0, 0, 0.5));
-  border-radius: 15px;
-  background-color: #0d5757;
-}
-
-/* Set flex direction for even pairs */
-.card-item:nth-child(even) .card {
-  flex-direction: row;
-  .project-part-presentation {
-    background-color: #146489;
-  }
-}
-
-/* Set flex direction for odd pairs */
-.card-item:nth-child(odd) .card {
-  flex-direction: row-reverse;
-  .project-part-presentation {
-    background-color: #122133;
-  }
-}
-
-.project-link-btn {
-  cursor: pointer;
-  border: none;
-  border-radius: 8px;
-  background-color: #f3f1f1;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
-  transform: scale(0.7);
-  @media (max-width: 1800px) {
-    transform: scale(0.5);
-  }
-}
-
-.project-card-title {
-  color: white;
-}
-
-.project-skills {
-  display: flex;
-  height: 20%;
-  bottom: 0;
-  align-items: flex-end;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
-  column-gap: 10px;
-  @media (max-width: 800px) {
-    display: none;
-  }
-  &.links {
-    @media (max-width: 1600px) {
-      display: none;
-    }
-  }
-  @media (max-width: 1600px) {
-    height: unset;
-  }
-}
+$accent: #1a997b;
+$accent-dim: rgba(26, 153, 123, 0.12);
+$border: rgba(255,255,255,0.07);
+$bg-odd: #131820;
+$bg-even: #111620;
 
 .card {
   display: flex;
   width: 100%;
-  justify-content: space-between;
-  align-items: center;
-  padding-left: clamp(0px, 18vw - 234px, 240px);
-  padding-right: clamp(0px, 18vw - 234px, 200px);
-}
+  align-items: stretch;
+  min-height: 260px;
+  border-bottom: 1px solid $border;
+  overflow: hidden;
+  transition: background 0.3s;
 
-/* Override flex-direction for max-width 1200px */
-@media (max-width: 1200px) {
-  .card {
-    flex-direction: row !important;
+  &:hover {
+    background: rgba(255,255,255,0.015);
+    .project-image { transform: scale(1.03); }
   }
 }
 
-// Tooltip
+.card-item:nth-child(even) .card { flex-direction: row; }
+.card-item:nth-child(odd) .card { flex-direction: row-reverse; }
+
+@media (max-width: 900px) {
+  .card { flex-direction: column !important; }
+  .project-part-image { width: 100%; height: 200px; }
+}
+
+.project-part-image {
+  position: relative;
+  width: 45%;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: #0d1520;
+}
+
+.project-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+  display: block;
+}
+
+.image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(13,21,32,0.4), transparent);
+
+  .card-item:nth-child(even) & {
+    background: linear-gradient(to left, rgba(13,21,32,0.4), transparent);
+  }
+}
+
+.project-part-presentation {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  gap: 0.75rem;
+}
+
+.project-meta {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.project-card-title {
+  color: #f0ede8;
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  font-weight: 600;
+  margin: 0;
+}
+
+.project-card-description {
+  color: #b1b1bd;
+  font-family: 'Raleway', sans-serif;
+  font-size: clamp(0.9rem,1vw,1.2rem);
+  line-height: 1.65;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  max-width: 480px;
+}
+
+.project-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.project-skill-img {
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  object-fit: contain;
+  background: rgba(255,255,255,0.08);
+  padding: 3px;
+}
+
+.project-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.4em 0.9em;
+  font-size: 0.78rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 6px;
+  background: rgba(255,255,255,0.04);
+  color: #b1b1bd;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    border-color: rgba(255,255,255,0.25);
+    color: #f0ede8;
+    background: rgba(255,255,255,0.08);
+  }
+
+  &--primary {
+    border-color: $accent;
+    color: $accent;
+
+    &:hover {
+      background: $accent;
+      color: #fff;
+    }
+  }
+}
 
 .tooltip {
   position: relative;
   display: inline-block;
-}
 
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 120px;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
+  .tooltiptext {
+    visibility: hidden;
+    white-space: nowrap;
+    background: #1a1a2e;
+    color: #f0ede8;
+    font-size: 0.72rem;
+    text-align: center;
+    border-radius: 4px;
+    padding: 4px 8px;
+    position: absolute;
+    z-index: 99;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    border: 1px solid $border;
+  }
 
-  /* Position the tooltip */
-  position: absolute;
-  z-index: 99999;
-}
-
-.tooltip:hover .tooltiptext {
-  visibility: visible;
+  &:hover .tooltiptext { visibility: visible; }
 }
 </style>

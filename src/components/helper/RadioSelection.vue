@@ -1,70 +1,88 @@
 <template>
-  <div class="select-project-category">
-    <select ref="selectElement" class="project-select" name="category" id="category" v-model="selected" @change="emitSelection">
-      <option :key="category" v-for="category in projectCategories" :value="category">{{ tr(category.title).value }}</option>
-    </select>
+  <div class="category-switcher">
+    <button
+      v-for="category in projectCategories"
+      :key="tr(category.title).value"
+      class="category-btn"
+      :class="{ active: isSelected(category) }"
+      @click="select(category)"
+    >
+      {{ tr(category.title).value }}
+    </button>
   </div>
 </template>
 
 <script lang="ts">
 import { ProjectCategory } from '@/store';
-import { tr } from '@/utils/utils';
 import { defineComponent, inject } from 'vue';
 
 export default defineComponent({
   props: ['projectCategories'],
-  methods: {
-    getProjectsName() {
-      return this.projectCategories.map((category: ProjectCategory) => tr(category.title).value);
-    },
-    emitSelection() {
-      this.$emit('selection', this.selected);
-    },
-  },
+  emits: ['selection'],
   data() {
-    return {
-      selected: ''
-    };
+    return { selected: null as ProjectCategory | null };
   },
-  setup() {
-    const tr = inject("tr");
-    return {
-      tr,
-    };
+  methods: {
+    isSelected(category: ProjectCategory) {
+      return this.selected?.title?.en === category?.title?.en;
+    },
+    select(category: ProjectCategory) {
+      this.selected = category;
+      this.$emit('selection', category);
+    },
   },
   watch: {
     projectCategories: {
       immediate: true,
       handler(newVal) {
-        if (newVal && newVal.length > 0) {
-          this.selected = this.projectCategories[0];
+        if (newVal && newVal.length > 0 && !this.selected) {
+          this.select(newVal[0]);
         }
-      }
-    }
-  }
+      },
+    },
+  },
+  setup() {
+    const tr = inject('tr') as any;
+    return { tr };
+  },
 });
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-@import url("https://fonts.googleapis.com/css?family=Inter:400'");
-
-.select-project-category {
-  text-align: center;
-  border: 1px solid #2980b9;
-  margin-right: 0.5em;
+.category-switcher {
   display: inline-flex;
-  position: relative;
-  /* Reset default styles */
-  select {
-    background: none;
-    border: none;
-    padding: 0;
-    margin: 0;
-    font-size: inherit;
-    font-family: inherit;
-    color: inherit;
-  }
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50px;
+  padding: 4px;
+  margin-right: 0.75rem;
+  flex-wrap: wrap;
+  transform: scale(1.4);
 }
 
+.category-btn {
+  border: none;
+  border-radius: 50px;
+  padding: 0.5em 1.4em;
+  font-size: 0.92rem;
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+  cursor: pointer;
+  background: transparent;
+  color: #b1b1bd;
+  transition: background 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    color: #f0ede8;
+    background: rgba(26, 153, 123, 0.15);
+  }
+
+  &.active {
+    background: #1a997b;
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(26, 153, 123, 0.35);
+  }
+}
 </style>
