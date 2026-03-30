@@ -1,4 +1,4 @@
-# portfolio
+# [Portfolio](https://kilca.github.io/)
 
 An hand-made portfolio using Vuejs, Vuex and Sanity io.
 
@@ -16,21 +16,14 @@ npm install
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Deployment
 ```
-npm run build
-cd dist
-git add *
-git commit -m "deploy"
-git push
-cd ..
+./deploy
 ```
 
 # Sanity
 
-```
-see /portfolio
-```
+see [Readme of /portfolio](/portfolio)
 
 ## Edit content (use your own)
 
@@ -38,7 +31,7 @@ https://kikportfolio.sanity.studio/desk
 
 ## Sanity init
 
-tip : use any youtuber coupon to double your free plan
+*tip : use any youtuber coupon to double your free plan*
 ```
 sanity init
 ```
